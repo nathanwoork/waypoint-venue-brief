@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Research and launch plan for an English-first FFXIV venue on Tonberry (Elemental).">
+<meta name="description" content="Research, launch plan and PIC roadmap for an English-first FFXIV venue on Tonberry (Elemental).">
 <title>Waypoint Venue Brief</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -227,6 +227,72 @@ footer{border-top:1px solid var(--line);padding-block:20px 40px;font-size:.8rem;
   .panel-page{animation:fade .25s ease-out}
   @keyframes fade{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:none}}
 }
+/* view switch + PIC checklist */
+:root{--summer:#F2B6D6; --summer-soft:#40263A; --kurome:#E6C47E; --kurome-soft:#3A3020}
+.viewbar{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:4px}
+.viewbar label{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.select{position:relative;display:inline-flex}
+.select select{appearance:none;-webkit-appearance:none;font:inherit;font-size:.95rem;font-weight:500;color:var(--lav-ink);background:var(--lav);border:1px solid var(--lav);border-radius:999px;padding:8px 38px 8px 16px;cursor:pointer}
+.select::after{content:"";position:absolute;right:16px;top:50%;width:7px;height:7px;border-right:2px solid var(--lav-ink);border-bottom:2px solid var(--lav-ink);transform:translateY(-70%) rotate(45deg);pointer-events:none}
+.select select option{background:var(--surface);color:var(--ink)}
+.viewbar .hint{font-size:.84rem;color:var(--muted)}
+.picbar .tabs{gap:6px}
+.pill{appearance:none;font:inherit;font-size:.9rem;font-weight:500;cursor:pointer;color:var(--muted);background:transparent;border:1px solid var(--line);border-radius:999px;padding:7px 14px;white-space:nowrap;display:flex;align-items:center;gap:8px}
+.pill .dot{width:9px;height:9px;border-radius:50%;background:var(--muted)}
+.pill.s .dot{background:var(--summer)} .pill.k .dot{background:var(--kurome)} .pill.b .dot{background:linear-gradient(90deg,var(--summer) 50%,var(--kurome) 50%)}
+.pill[aria-pressed="true"]{background:var(--raise);color:var(--ink);border-color:var(--lav-deep)}
+.pill.jumpf{margin-left:auto}
+.people{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.person{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.person.s{border-top:3px solid var(--summer)} .person.k{border-top:3px solid var(--kurome)}
+.person .nm{font-family:var(--f-display);font-size:1.7rem;line-height:1}
+.person.s .nm{color:var(--summer)} .person.k .nm{color:var(--kurome)}
+.person .role{font-size:.92rem;color:var(--muted)}
+.prog{display:flex;align-items:center;gap:10px;font-family:var(--f-mono);font-size:.78rem;color:var(--muted)}
+.prog .bar{flex:1;height:8px;border-radius:999px;background:var(--raise);overflow:hidden}
+.prog .bar i{display:block;height:100%;width:0;border-radius:999px;transition:width .3s}
+.person.s .prog i{background:var(--summer)} .person.k .prog i{background:var(--kurome)}
+.facts{display:flex;flex-wrap:wrap;gap:6px}
+.facts span{font-family:var(--f-mono);font-size:.74rem;padding:3px 9px;border-radius:999px;background:var(--raise);border:1px solid var(--line)}
+.phase{display:flex;flex-direction:column;gap:10px;padding-top:20px;border-top:1px solid var(--line)}
+.phase-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px}
+.phase-head h3{font-family:var(--f-display);font-weight:400;font-size:1.3rem}
+.phase-head .when{font-family:var(--f-mono);font-size:.74rem;color:var(--lav)}
+.checks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.chk{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px}
+.chk input{appearance:none;-webkit-appearance:none;width:20px;height:20px;margin:2px 0 0;border:1.5px solid var(--muted);border-radius:5px;display:grid;place-items:center;cursor:pointer;background:var(--bg)}
+.chk input:checked{background:var(--lav);border-color:var(--lav)}
+.chk input:checked::after{content:"";width:5px;height:10px;border-right:2px solid var(--lav-ink);border-bottom:2px solid var(--lav-ink);transform:translateY(-1px) rotate(45deg)}
+.chk label{cursor:pointer;display:flex;flex-direction:column;gap:3px;min-width:0}
+.chk .t{font-weight:500;font-size:.95rem}
+.chk .d{font-size:.86rem;color:var(--muted)}
+.chk.done .t{text-decoration:line-through;text-decoration-color:var(--muted);color:var(--muted)}
+.tags{display:flex;flex-direction:column;align-items:flex-end;gap:5px}
+.who{font-family:var(--f-mono);font-size:.7rem;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.who.s{background:var(--summer-soft);color:var(--summer)} .who.k{background:var(--kurome-soft);color:var(--kurome)} .who.b{background:var(--lav-soft);color:var(--lav)}
+.gilcost{font-family:var(--f-mono);font-size:.72rem;color:var(--gil);white-space:nowrap}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.kpi b{font-family:var(--f-mono);font-weight:500;font-size:1.35rem;color:var(--kurome);font-variant-numeric:tabular-nums}
+.kpi span{font-size:.8rem;color:var(--muted)}
+.chart-wrap{overflow-x:auto}
+.fc-svg{width:100%;min-width:560px;height:auto;display:block}
+.fc-svg .grid{stroke:var(--line);stroke-width:1}
+.fc-svg .axis{font-family:var(--f-mono);font-size:10px;fill:var(--muted)}
+.fc-svg .bar{fill:var(--lav-deep);opacity:.75}
+.fc-svg .bar.big{fill:var(--lav)}
+.fc-svg .line{fill:none;stroke:var(--kurome);stroke-width:2.5}
+.fc-svg .area{fill:var(--kurome);opacity:.08}
+.fc-svg .pt{fill:var(--kurome)}
+.fc-svg .lbl{font-family:var(--f-mono);font-size:10.5px;fill:var(--kurome)}
+.fc-svg .floor{stroke:var(--bad);stroke-dasharray:5 4;stroke-width:1.2}
+.fc-svg .floorl{font-family:var(--f-mono);font-size:10px;fill:var(--bad)}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:.8rem;color:var(--muted)}
+.legend i{display:inline-block;width:12px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+.share{display:inline-block;height:8px;border-radius:999px;background:var(--kurome);vertical-align:middle;margin-right:8px}
+.hidden-by-filter{display:none!important}
+@media (max-width:760px){.people{grid-template-columns:minmax(0,1fr)}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.pill.jumpf{margin-left:0}}
+@media (max-width:520px){.chk{grid-template-columns:auto minmax(0,1fr)}.tags{grid-column:2;flex-direction:row;align-items:center;flex-wrap:wrap}}
 </style>
 </head>
 <body>
@@ -241,9 +307,15 @@ footer{border-top:1px solid var(--line);padding-block:20px 40px;font-size:.8rem;
       <span class="chip">Tonberry <b>Standard</b></span>
       <span class="chip">Active players <b>7,639</b></span>
     </div>
+    <div class="viewbar">
+      <label for="view">View</label>
+      <span class="select"><select id="view"><option value="chapters">Chapters</option><option value="pic">PIC checklist</option></select></span>
+      <span class="hint">Switch between the research chapters and the Summer / Kurome roadmap.</span>
+    </div>
   </div>
 </div>
 
+<div id="view-chapters">
 <nav class="tabbar" aria-label="Sections">
   <div class="wrap">
     <div class="tabs" role="tablist">
@@ -712,6 +784,153 @@ footer{border-top:1px solid var(--line);padding-block:20px 40px;font-size:.8rem;
 </section>
 
 </main>
+</div>
+<div id="view-pic" hidden>
+<nav class="tabbar picbar" aria-label="Filter checklist by person">
+  <div class="wrap">
+    <div class="tabs">
+      <button class="pill" data-who="all" aria-pressed="true"><span class="dot"></span>Everyone</button>
+      <button class="pill s" data-who="s" aria-pressed="false"><span class="dot"></span>Summer</button>
+      <button class="pill k" data-who="k" aria-pressed="false"><span class="dot"></span>Kurome</button>
+      <button class="pill b" data-who="b" aria-pressed="false"><span class="dot"></span>Shared</button>
+      <button class="pill jumpf" data-jump="forecast"><span class="dot" style="background:var(--gil)"></span>Gil forecast</button>
+    </div>
+  </div>
+</nav>
+
+<main class="wrap panel-page">
+  <div class="sec-head">
+    <span class="label">PIC checklist · production roadmap</span>
+    <h2>Who does what, week by week</h2>
+    <p class="prose muted">Two people run Waypoint. Each task has one person in charge (PIC). Tick items off as you go; ticks are saved in this browser only, so each of you keeps your own copy.</p>
+  </div>
+
+  <div class="people">
+    <article class="person s">
+      <span class="label">PIC · production</span>
+      <span class="nm">Summer</span>
+      <p class="role">Design and development, staff recruitment and socialising, booking and sign-up sites, marketing, and running the venue on the night.</p>
+      <div class="facts"><span>Design</span><span>Development</span><span>Recruitment</span><span>Booking site</span><span>Marketing</span><span>Management</span></div>
+      <div class="prog"><div class="bar"><i id="prog-s"></i></div><span id="cnt-s">0 / 0</span></div>
+    </article>
+    <article class="person k">
+      <span class="label">PIC · finance and ideas</span>
+      <span class="nm">Kurome</span>
+      <p class="role">Funds the whole project in gil, keeps the ledger, approves every spend, and leads idea generation for events, themes and rewards.</p>
+      <div class="facts"><span>Budget 80M gil</span><span>Income 800k gil / day</span><span>Ledger</span><span>Approvals</span><span>Ideas lead</span></div>
+      <div class="prog"><div class="bar"><i id="prog-k"></i></div><span id="cnt-k">0 / 0</span></div>
+    </article>
+  </div>
+
+  <section class="phase" data-phase>
+    <div class="phase-head"><span class="when">Week 1 · 6–12 Oct</span><h3>Foundations</h3></div>
+    <ul class="checks">
+      <li class="chk" data-who="b"><input type="checkbox" id="c-concept"><label for="c-concept"><span class="t">Agree the concept, name and fixed night</span><span class="d">One paragraph, house rules, weekly night between 20:00 and 23:00 GMT+8.</span></label><div class="tags"><span class="who b">Shared</span></div></li>
+      <li class="chk" data-who="s"><input type="checkbox" id="c-discord"><label for="c-discord"><span class="t">Build the Discord and cross-world linkshell</span><span class="d">Channel layout, Onboarding roles, AutoMod, Raid-Helper, rules channel.</span></label><div class="tags"><span class="who s">Summer</span></div></li>
+      <li class="chk" data-who="s"><input type="checkbox" id="c-brand"><label for="c-brand"><span class="t">Design the brand kit</span><span class="d">Logo, colour palette, Party Finder tag [WPT], screenshot style.</span></label><div class="tags"><span class="who s">Summer</span></div></li>
+      <li class="chk" data-who="s"><input type="checkbox" id="c-site"><label for="c-site"><span class="t">Launch the booking and info site</span><span class="d">Venue page with schedule, rules and a sign-up form for throwback raids and staff applications.</span></label><div class="tags"><span class="who s">Summer</span></div></li>
+      <li class="chk" data-who="k"><input type="checkbox" id="c-ledger"><label for="c-ledger"><span class="t">Open the gil ledger</span><span class="d">Daily income log, spend categories, approval column, reserve floor of 10M.</span></label><div class="tags"><span class="who k">Kurome</span></div></li>
+      <li class="chk" data-who="k"><input type="checkbox" id="c-wage"><label for="c-wage"><span class="t">Set the wage scale and spending rules</span><span class="d">500k per staff shift, gil only, no real-money trading, receipts for every payout.</span></label><div class="tags"><span class="who k">Kurome</span></div></li>
+      <li class="chk" data-who="k"><input type="checkbox" id="c-deposit"><label for="c-deposit"><span class="t">Approve the designer and pay the 50% deposit</span><span class="d">Summer shortlists, Kurome approves the quote and pays.</span></label><div class="tags"><span class="who k">Kurome</span><span class="gilcost">10M</span></div></li>
+      <li class="chk" data-who="s"><input type="checkbox" id="c-officers"><label for="c-officers"><span class="t">Recruit two trusted officers</span><span class="d">They cover nights you can't and set the culture.</span></label><div class="tags"><span class="who s">Summer</span></div></li>
+    </ul>
+  </section>
+
+  <section class="phase" data-phase>
+    <div class="phase-head"><span class="when">Weeks 2–4 · 13 Oct – 2 Nov</span><h3>Build</h3></div>
+    <ul class="checks">
+      <li class="chk" data-who="s"><input type="checkbox" id="c-brief"><label for="c-brief"><span class="t">Brief and manage the designer</span><span class="d">Three-zone layout: Lounge, Stage room, the Board. Weekly progress screenshots.</span></label><div class="tags"><span class="who s">Summer</span></div></li>
+      <li class="chk" data-who="k"><input type="checkbox" id="c-furn"><label for="c-furn"><span class="t">Fund the furniture budget in three transfers</span><span class="d">12M, 12M, 11M to the designer's Tonberry character. Track unused budget returned.</span></label><div class="tags"><span class="who k">Kurome</span><span class="gilcost">35M</span></div></li>
+      <li class="chk" data-who="k"><input type="checkbox" id="c-ideas"><label for="c-ideas"><span class="t">Write the event and reward idea bank</span><span class="d">Throwback rotation, passport rewards, monthly RP arc themes, newcomer-night format.</span></label><div class="tags"><span class="who k">Kurome</span></div></li>
+      <li class="chk" data-who="s"><input type="checkbox" id="c-tb"><label for="c-tb"><span class="t">Run three throwback raid nights through Party Finder</span><span class="d">No house needed. Builds the raid side while the venue is decorated.</span></label><div class="tags"><span class="who s">Summer</span></div></li>
+      <li class="chk" data-who="k"><input type="checkbox" id="c-tbfund"><label for="c-tbfund"><span class="t">Fund throwback bounties</span><span class="d">0.5M a week for clears and first-timer prizes.</span></label><div class="tags"><span class="who k">Kurome</span><span class="gilcost">1.5M</span></div></li>
+      <li class="chk" data-who="s"><input type="checkbox" id="c-fc"><label for="c-fc"><span class="t">Partner with three to five English FCs</span><span class="d">Offer each a recruitment board in the Lounge.</span></label><div class="tags"><span class="who s">Summer</span></div></li>
+      <li class="chk" data-who="s"><input type="checkbox" id="c-staff"><label for="c-staff"><span class="t">Recruit staff and run trial shifts</span><span class="d">Greeters, bartender, RP lead, Board host, moderator.</span></label><div class="tags"><span class="who s">Summer</span></div></li>
+      <li class="chk" data-who="k"><input type="checkbox" id="c-trial"><label for="c-trial"><span class="t">Pay trial shifts</span><span class="d">Paid on the night, logged in the ledger.</span></label><div class="tags"><span class="who k">Kurome</span><span class="gilcost">1M</span></div></li>
+      <li class="chk" data-who="k"><input type="checkbox" id="c-final"><label for="c-final"><span class="t">Sign off the build and pay the designer balance</span><span class="d">Walk the house with Summer first.</span></label><div class="tags"><span class="who k">Kurome</span><span class="gilcost">10M</span></div></li>
+      <li class="chk" data-who="s"><input type="checkbox" id="c-mkt"><label for="c-mkt"><span class="t">Prepare launch marketing</span><span class="d">Party Finder templates, Lodestone event, Reddit post, screenshots for X and Bluesky.</span></label><div class="tags"><span class="who s">Summer</span></div></li>
+    </ul>
+  </section>
+
+  <section class="phase" data-phase>
+    <div class="phase-head"><span class="when">Weeks 5–6 · 3–16 Nov</span><h3>Launch</h3></div>
+    <ul class="checks">
+      <li class="chk" data-who="s"><input type="checkbox" id="c-soft"><label for="c-soft"><span class="t">Host the soft opening for Discord members</span><span class="d">Collect feedback and fix the rota before going public.</span></label><div class="tags"><span class="who s">Summer</span></div></li>
+      <li class="chk" data-who="k"><input type="checkbox" id="c-softfund"><label for="c-softfund"><span class="t">Fund the soft opening</span><span class="d">Small prizes and staff pay.</span></label><div class="tags"><span class="who k">Kurome</span><span class="gilcost">1.5M</span></div></li>
+      <li class="chk" data-who="s"><input type="checkbox" id="c-open"><label for="c-open"><span class="t">Run the public opening night</span><span class="d">Party Finder "Other" listing, Lodestone event, Reddit post the same day.</span></label><div class="tags"><span class="who s">Summer</span></div></li>
+      <li class="chk" data-who="k"><input type="checkbox" id="c-openfund"><label for="c-openfund"><span class="t">Fund the opening event</span><span class="d">Glamour contest prizes and expansion passport launch rewards.</span></label><div class="tags"><span class="who k">Kurome</span><span class="gilcost">3M</span></div></li>
+      <li class="chk" data-who="b"><input type="checkbox" id="c-review1"><label for="c-review1"><span class="t">First review together</span><span class="d">Returning guests, staff feedback, spend against forecast.</span></label><div class="tags"><span class="who b">Shared</span></div></li>
+    </ul>
+  </section>
+
+  <section class="phase" data-phase>
+    <div class="phase-head"><span class="when">Week 7 onward · 17 Nov – Evercold</span><h3>Run and grow</h3></div>
+    <ul class="checks">
+      <li class="chk" data-who="s"><input type="checkbox" id="c-weekly"><label for="c-weekly"><span class="t">Manage the weekly night</span><span class="d">Rota, opening checklist, incident log, screenshots for socials.</span></label><div class="tags"><span class="who s">Summer</span></div></li>
+      <li class="chk" data-who="k"><input type="checkbox" id="c-payroll"><label for="c-payroll"><span class="t">Run weekly payroll and running costs</span><span class="d">Staff 3.5M, performers 1M, bounties 1M, marketing 0.5M, refits 0.5M.</span></label><div class="tags"><span class="who k">Kurome</span><span class="gilcost">6.5M / wk</span></div></li>
+      <li class="chk" data-who="s"><input type="checkbox" id="c-site2"><label for="c-site2"><span class="t">Keep the booking site and Board current</span><span class="d">Throwback rotation, clears wall, passport stamps.</span></label><div class="tags"><span class="who s">Summer</span></div></li>
+      <li class="chk" data-who="k"><input type="checkbox" id="c-monthly"><label for="c-monthly"><span class="t">Monthly finance review</span><span class="d">Actual versus forecast, reserve above 10M, pull the levers below if needed.</span></label><div class="tags"><span class="who k">Kurome</span></div></li>
+      <li class="chk" data-who="k"><input type="checkbox" id="c-ever"><label for="c-ever"><span class="t">Plan and fund the Evercold newcomer night</span><span class="d">Kurome designs the event, Summer runs it on the night.</span></label><div class="tags"><span class="who k">Kurome</span><span class="gilcost">2M</span></div></li>
+      <li class="chk" data-who="s"><input type="checkbox" id="c-newc"><label for="c-newc"><span class="t">Market to Switch 2 and Evercold newcomers</span><span class="d">Newcomer desk in the Lounge, posts in SEA groups and r/ffxivrecruitment.</span></label><div class="tags"><span class="who s">Summer</span></div></li>
+      <li class="chk" data-who="b"><input type="checkbox" id="c-sync"><label for="c-sync"><span class="t">Weekly sync</span><span class="d">Fifteen minutes: what ran, what it cost, what's next.</span></label><div class="tags"><span class="who b">Shared</span></div></li>
+    </ul>
+  </section>
+
+  <section class="phase" id="forecast" style="scroll-margin-top:72px">
+    <div class="phase-head"><span class="when">Kurome · 16 weeks · 6 Oct 2026 – 25 Jan 2027</span><h3>Gil forecast</h3></div>
+    <p class="prose muted">Starting balance 80M gil, income 800k gil a day (5.6M a week). Plot already owned, so it costs nothing here. Spending follows the mid-range of the Budget chapter.</p>
+    <div class="kpis num">
+      <div class="kpi"><b>80.0M</b><span>Starting budget</span></div>
+      <div class="kpi"><b>+89.6M</b><span>Income over 16 weeks</span></div>
+      <div class="kpi"><b>−135.5M</b><span>Planned spend</span></div>
+      <div class="kpi"><b>34.1M</b><span>Balance at week 16 (lowest point)</span></div>
+    </div>
+    <div class="card">
+      <div><h3>Weekly spend and running balance</h3><p class="note">Millions of gil. Bars are each week's spend; the line is the balance after that week's income and spend.</p></div>
+      <div class="chart-wrap"><svg class="fc-svg" id="fc" viewBox="0 0 680 280" role="img" aria-label="Balance falls from 80M to 44.9M by week 4 during the build, recovers to 49M in week 5, then drifts down about 0.9M a week to 34.1M at week 16."></svg></div>
+      <div class="legend"><span><i style="background:var(--lav-deep)"></i>Weekly spend</span><span><i style="background:var(--kurome)"></i>Balance</span><span><i style="background:var(--bad)"></i>10M reserve floor</span></div>
+    </div>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Category</th><th>16-week total</th><th>Share of spend</th><th>Funds this task</th><th>Requested by → approved by</th></tr></thead>
+        <tbody>
+          <tr><td>Staff wages</td><td class="n">39.5M</td><td class="n"><span class="share" style="width:58px"></span>29%</td><td>Trial shifts, then 7 staff × 500k per weekly night</td><td>Summer → Kurome</td></tr>
+          <tr><td>Furniture</td><td class="n">35.0M</td><td class="n"><span class="share" style="width:52px"></span>26%</td><td>Designer's furniture budget, weeks 2–4</td><td>Summer → Kurome</td></tr>
+          <tr><td>Designer fee</td><td class="n">20.0M</td><td class="n"><span class="share" style="width:30px"></span>15%</td><td>Large-house interior and exterior, 50% up front</td><td>Summer → Kurome</td></tr>
+          <tr><td>Raid bounties and prizes</td><td class="n">12.5M</td><td class="n"><span class="share" style="width:18px"></span>9%</td><td>Throwback clears, expansion passport rewards</td><td>Kurome</td></tr>
+          <tr><td>Performers</td><td class="n">11.0M</td><td class="n"><span class="share" style="width:16px"></span>8%</td><td>Bard or DJ set each night (placeholder rate)</td><td>Summer → Kurome</td></tr>
+          <tr><td>Opening events</td><td class="n">6.5M</td><td class="n"><span class="share" style="width:10px"></span>5%</td><td>Soft opening, public opening, Evercold newcomer night</td><td>Kurome</td></tr>
+          <tr><td>Marketing and events</td><td class="n">5.5M</td><td class="n"><span class="share" style="width:8px"></span>4%</td><td>Glamour contests, raffles, newcomer welcome gifts</td><td>Summer → Kurome</td></tr>
+          <tr><td>Refits and seasonal decor</td><td class="n">5.5M</td><td class="n"><span class="share" style="width:8px"></span>4%</td><td>Seasonal changes, replacing worn props</td><td>Summer → Kurome</td></tr>
+          <tr class="total"><td>Total</td><td class="n">135.5M</td><td class="n">100%</td><td colspan="2">Covered by 80M budget + 89.6M income, leaving 34.1M</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h3>What the numbers say</h3>
+        <ul class="clean">
+          <li>The build (weeks 1–4) is the expensive part: 57.5M, paid almost entirely from the starting budget.</li>
+          <li>Once open, running costs are 6.5M a week against 5.6M of income, so the balance drifts down about 0.9M a week.</li>
+          <li>At that rate the 34.1M left at week 16 lasts roughly 26 more weeks before reaching the 10M floor.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Levers to reach break-even</h3>
+        <ul class="clean">
+          <li>Six staff instead of seven saves 0.5M a week.</li>
+          <li>Performers every other week saves 0.5M a week.</li>
+          <li>Either pair of changes brings running costs to 5.5M, just under income.</li>
+          <li>Never top up with bought gil. Real-money trading gets accounts banned.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
+</div>
+
 <footer><div class="wrap">Waypoint Venue Brief · compiled 6 October 2026 · FINAL FANTASY XIV is a registered trademark of Square Enix. This is an unofficial fan planning page.</div></footer>
 
 <script>
@@ -739,6 +958,65 @@ footer{border-top:1px solid var(--line);padding-block:20px 40px;font-size:.8rem;
   document.querySelectorAll('.subnav a').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();var el=document.querySelector(a.getAttribute('href'));if(el)el.scrollIntoView({behavior:'smooth',block:'start'});});});
   var h=(location.hash||'').slice(1);
   show(ids.indexOf(h)>=0?h:'overview');
+})();
+</script>
+<script>
+(function(){
+  var KEY='waypoint-pic-v1', state={};
+  try{state=JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(e){state={};}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
+  var viewSel=document.getElementById('view'), vc=document.getElementById('view-chapters'), vp=document.getElementById('view-pic');
+  function setView(v){vc.hidden=v!=='chapters'; vp.hidden=v!=='pic'; viewSel.value=v; try{localStorage.setItem('waypoint-view',v);}catch(e){}}
+  viewSel.addEventListener('change',function(){setView(viewSel.value);window.scrollTo({top:0});});
+  var h=(location.hash||'').slice(1), saved=null; try{saved=localStorage.getItem('waypoint-view');}catch(e){}
+  setView(h==='pic'||h==='forecast'?'pic':(h&&h!=='pic'?'chapters':(saved||'chapters')));
+
+  var items=[].slice.call(document.querySelectorAll('.chk'));
+  function counts(){
+    ['s','k'].forEach(function(w){
+      var mine=items.filter(function(i){return i.dataset.who===w||i.dataset.who==='b'});
+      var done=mine.filter(function(i){return i.querySelector('input').checked}).length;
+      document.getElementById('cnt-'+w).textContent=done+' / '+mine.length;
+      document.getElementById('prog-'+w).style.width=(mine.length?done/mine.length*100:0)+'%';
+    });
+  }
+  items.forEach(function(li){
+    var cb=li.querySelector('input');
+    cb.checked=!!state[cb.id]; li.classList.toggle('done',cb.checked);
+    cb.addEventListener('change',function(){state[cb.id]=cb.checked; li.classList.toggle('done',cb.checked); save(); counts();});
+  });
+  counts();
+
+  var pills=[].slice.call(document.querySelectorAll('.pill[data-who]'));
+  pills.forEach(function(p){p.addEventListener('click',function(){
+    var w=p.dataset.who;
+    pills.forEach(function(x){x.setAttribute('aria-pressed',x===p?'true':'false')});
+    items.forEach(function(li){li.classList.toggle('hidden-by-filter',!(w==='all'||li.dataset.who===w||(w!=='b'&&li.dataset.who==='b')))});
+    document.querySelectorAll('[data-phase]').forEach(function(ph){
+      var vis=[].slice.call(ph.querySelectorAll('.chk')).some(function(li){return !li.classList.contains('hidden-by-filter')});
+      ph.classList.toggle('hidden-by-filter',!vis);
+    });
+  });});
+  document.querySelector('[data-jump]').addEventListener('click',function(){document.getElementById('forecast').scrollIntoView({behavior:'smooth',block:'start'})});
+  if(h==='forecast'){setTimeout(function(){document.getElementById('forecast').scrollIntoView({block:'start'})},50);}
+
+  // forecast chart
+  var spend=[10,12.5,13.5,21.5,1.5,9.5,6.5,6.5,6.5,6.5,6.5,6.5,6.5,6.5,8.5,6.5];
+  var bal=[75.6,68.7,60.8,44.9,49.0,45.1,44.2,43.3,42.4,41.5,40.6,39.7,38.8,37.9,35.0,34.1];
+  var svg=document.getElementById('fc'), NS='http://www.w3.org/2000/svg';
+  var L=48,R=664,T=20,B=240,max=80, n=spend.length, step=(R-L)/n;
+  function y(v){return B-(v/max)*(B-T)}
+  function el(t,a,txt){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);if(txt!=null)e.textContent=txt;svg.appendChild(e);return e}
+  [0,20,40,60,80].forEach(function(v){el('line',{x1:L,x2:R,y1:y(v),y2:y(v),class:'grid'});el('text',{x:L-8,y:y(v)+3.5,'text-anchor':'end',class:'axis'},v+'M')});
+  el('line',{x1:L,x2:R,y1:y(10),y2:y(10),class:'floor'});el('text',{x:R,y:y(10)-5,'text-anchor':'end',class:'floorl'},'10M floor');
+  spend.forEach(function(s,i){var x=L+i*step+step*0.2,w=step*0.6;el('rect',{x:x,y:y(s),width:w,height:B-y(s),rx:2,class:'bar'+(s>10?' big':'')});
+    if(i%2===0||i===n-1) el('text',{x:L+i*step+step/2,y:B+16,'text-anchor':'middle',class:'axis'},'W'+(i+1));});
+  var pts=bal.map(function(b,i){return [L+i*step+step/2,y(b)]});
+  el('path',{d:'M'+pts[0][0]+','+B+' L'+pts.map(function(p){return p.join(',')}).join(' L')+' L'+pts[n-1][0]+','+B+' Z',class:'area'});
+  el('polyline',{points:pts.map(function(p){return p.join(',')}).join(' '),class:'line'});
+  [0,3,4,n-1].forEach(function(i){el('circle',{cx:pts[i][0],cy:pts[i][1],r:3.5,class:'pt'});el('text',{x:pts[i][0],y:pts[i][1]-9,'text-anchor':i===n-1?'end':'middle',class:'lbl'},bal[i].toFixed(1)+'M')});
+  el('text',{x:L+step*2,y:B+32,'text-anchor':'middle',class:'axis'},'build');
+  el('text',{x:L+step*10.5,y:B+32,'text-anchor':'middle',class:'axis'},'open · weekly running costs');
 })();
 </script>
 </body>
