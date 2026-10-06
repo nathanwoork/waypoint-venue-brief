@@ -1,0 +1,745 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Research and launch plan for an English-first FFXIV venue on Tonberry (Elemental).">
+<title>Waypoint Venue Brief</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a dark lavender briefing book. Sticky tab bar at the top, one panel per kind of information, Party Finder listings and ward/plot addresses as the recurring motif. Deliberately single-theme (dark). */
+:root{
+  --bg:#16111E; --surface:#201929; --raise:#2A2137; --line:#3B3050; --ink:#EEE8F6; --muted:#B2A6C6;
+  --lav:#C7AEF2; --lav-deep:#9273D1; --lav-ink:#1B1426; --lav-soft:#33284A;
+  --gil:#E6C47E; --gil-soft:#3A3020;
+  --casual:#82D6B7; --casual-soft:#1E3A33; --rp:#E7A6DC; --rp-soft:#3F2440; --raid:#F49494; --raid-soft:#42222A;
+  --good:#8ED6A2; --warn:#EAC06A; --bad:#F49488;
+  --f-display:"Marcellus","Trajan Pro","Cinzel",Georgia,serif;
+  --f-body:"IBM Plex Sans",-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{background:var(--bg)}
+body{color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;margin:0}
+.wrap{max-width:1100px;margin:0 auto;padding-inline:20px}
+h1,h2{font-family:var(--f-display);font-weight:400;letter-spacing:.01em;text-wrap:balance;margin:0;line-height:1.12}
+h1{font-size:clamp(2.2rem,6vw,3.5rem)}
+h2{font-size:clamp(1.55rem,3.4vw,2rem)}
+h3{font-size:1.06rem;font-weight:600;margin:0;line-height:1.3;text-wrap:balance}
+p{margin:0}
+a{color:var(--lav);text-underline-offset:2px}
+:focus-visible{outline:2px solid var(--lav);outline-offset:2px;border-radius:3px}
+.label{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.muted{color:var(--muted)}
+.prose{max-width:68ch}
+.num{font-variant-numeric:tabular-nums}
+code,.mono{font-family:var(--f-mono)}
+
+/* header + tabs */
+.top{padding-block:34px 18px;display:flex;flex-direction:column;gap:14px;background:radial-gradient(ellipse 80% 120% at 10% 0%,var(--lav-soft),transparent 70%)}
+.dek{font-size:1.08rem;color:var(--muted);max-width:64ch}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:var(--f-mono);font-size:.75rem;padding:4px 10px;border:1px solid var(--line);border-radius:999px;background:var(--surface);white-space:nowrap}
+.chip b{font-weight:500;color:var(--lav)}
+.tabbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding-block:10px}
+.tabs::-webkit-scrollbar{display:none}
+.tab{appearance:none;border:1px solid transparent;background:transparent;color:var(--muted);font-family:var(--f-body);font-size:.92rem;font-weight:500;padding:8px 14px;border-radius:999px;cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:8px}
+.tab .n{font-family:var(--f-mono);font-size:.7rem;color:var(--lav-deep)}
+.tab:hover{color:var(--ink);background:var(--surface)}
+.tab[aria-selected="true"]{background:var(--lav);color:var(--lav-ink);border-color:var(--lav)}
+.tab[aria-selected="true"] .n{color:var(--lav-ink)}
+main{padding-block:32px 72px}
+.panel-page{display:flex;flex-direction:column;gap:28px}
+.sec-head{display:flex;flex-direction:column;gap:10px}
+.sub{scroll-margin-top:72px;display:flex;flex-direction:column;gap:16px;padding-top:22px;border-top:1px solid var(--line)}
+
+/* generic blocks */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.note{font-size:.8rem;color:var(--muted)}
+ul.clean{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:7px;font-size:.93rem}
+.ev{align-self:flex-start;font-family:var(--f-mono);font-size:.67rem;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:3px;border:1px solid var(--line);color:var(--muted)}
+.ev.data{border-color:var(--lav-deep);color:var(--lav)}
+.ev.inf{border-style:dashed}
+
+/* verdict */
+.verdict{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:28px;background:var(--raise);padding:28px;border-radius:10px;border:1px solid var(--line)}
+.verdict .big{font-family:var(--f-display);font-size:clamp(1.4rem,3vw,1.85rem);line-height:1.25;text-wrap:balance;color:var(--lav)}
+.verdict ol{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px;counter-reset:f}
+.verdict li{display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:baseline}
+.verdict li::before{counter-increment:f;content:counter(f);font-family:var(--f-mono);font-size:.78rem;color:var(--lav);border:1px solid var(--lav-deep);border-radius:50%;width:24px;height:24px;display:inline-grid;place-items:center}
+.jump{display:flex;flex-wrap:wrap;gap:10px}
+.jump button{appearance:none;font:inherit;font-size:.88rem;cursor:pointer;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:12px 14px;text-align:left;display:flex;flex-direction:column;gap:2px;flex:1 1 180px}
+.jump button:hover{border-color:var(--lav-deep)}
+.jump b{font-weight:600;color:var(--lav)}
+
+/* bars */
+.bars{display:flex;flex-direction:column;gap:7px}
+.bar-row,.axis{display:grid;grid-template-columns:86px minmax(0,1fr) 52px 80px;gap:10px;align-items:center;font-size:.86rem}
+.dc .bar-row,.dc .axis{grid-template-columns:76px minmax(0,1fr) 58px}
+.track{position:relative;height:14px;background:var(--raise);border-radius:2px}
+.fill{position:absolute;inset:0 auto 0 0;background:var(--muted);opacity:.45;border-radius:2px}
+.bar-row.hl .fill{background:var(--lav);opacity:1}
+.bar-row.hl .name{color:var(--lav);font-weight:600}
+.val{text-align:right;font-family:var(--f-mono);font-size:.8rem}
+.status{font-family:var(--f-mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.05em;padding:2px 6px;border-radius:3px;text-align:center}
+.st-pref{background:var(--casual-soft);color:var(--casual)}
+.st-std{background:var(--raise);color:var(--muted)}
+.ticks{position:relative;height:16px;border-top:1px solid var(--line)}
+.ticks span{position:absolute;top:2px;transform:translateX(-50%);font-family:var(--f-mono);font-size:.68rem;color:var(--muted)}
+.ticks span:first-child{transform:none}
+.ticks span:last-child{transform:translateX(-100%)}
+.charts{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:16px}
+
+/* timeline */
+.timeline{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(7,minmax(0,1fr))}
+.timeline li{position:relative;padding:22px 10px 0 0;display:flex;flex-direction:column;gap:4px;min-width:0}
+.timeline li::before{content:"";position:absolute;top:6px;left:0;right:0;height:1px;background:var(--line)}
+.timeline li::after{content:"";position:absolute;top:1px;left:0;width:11px;height:11px;border-radius:50%;background:var(--bg);border:2px solid var(--muted)}
+.timeline li.ahead::after{border-color:var(--lav);background:var(--lav)}
+.timeline .when{font-family:var(--f-mono);font-size:.73rem;color:var(--muted)}
+.timeline .what{font-size:.86rem;line-height:1.4}
+
+/* segments */
+.seg{background:var(--surface);border:1px solid var(--line);border-radius:8px;display:flex;flex-direction:column;min-width:0;overflow:hidden}
+.pf{display:flex;align-items:center;gap:8px;padding:10px 14px;font-family:var(--f-mono);font-size:.73rem;background:var(--raise);border-bottom:1px solid var(--line);flex-wrap:wrap}
+.lang{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 4px;border-radius:3px;font-weight:500;font-size:.72rem;color:var(--lav-ink)}
+.c .lang{background:var(--casual)} .r .lang{background:var(--rp)} .d .lang{background:var(--raid)}
+.seg-body{padding:18px;display:flex;flex-direction:column;gap:14px;flex:1}
+.c h3{color:var(--casual)} .r h3{color:var(--rp)} .d h3{color:var(--raid)}
+.seg dl{margin:0;display:flex;flex-direction:column;gap:11px}
+.seg dt{font-family:var(--f-mono);font-size:.69rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.seg dd{margin:2px 0 0;font-size:.9rem;line-height:1.5}
+.fit{margin-top:auto;display:flex;align-items:center;gap:10px;padding-top:14px;border-top:1px dashed var(--line);font-size:.84rem}
+.pips{display:flex;gap:4px}
+.pips i{width:22px;height:8px;border-radius:2px;background:var(--raise);border:1px solid var(--line)}
+.c .pips i.on{background:var(--casual);border-color:var(--casual)}
+.r .pips i.on{background:var(--rp);border-color:var(--rp)}
+.d .pips i.on{background:var(--raid);border-color:var(--raid)}
+
+/* time zones */
+.tz{display:flex;flex-direction:column;gap:10px}
+.tz-row{display:grid;grid-template-columns:110px minmax(0,1fr);gap:12px;align-items:center;font-size:.84rem}
+.tz-track{position:relative;height:22px;background:var(--raise);border-radius:3px}
+.tz-bar{position:absolute;top:3px;bottom:3px;border-radius:2px;display:flex;align-items:center;padding-left:6px;font-family:var(--f-mono);font-size:.68rem;color:var(--lav-ink);white-space:nowrap;overflow:hidden}
+.tz-core{position:absolute;top:-4px;bottom:-4px;border:1.5px dashed var(--lav);border-radius:4px;pointer-events:none}
+.tz-hours{position:relative;height:16px}
+.tz-hours span{position:absolute;transform:translateX(-50%);font-family:var(--f-mono);font-size:.68rem;color:var(--muted)}
+
+/* gil */
+.yes{background:var(--gil-soft);border-color:transparent}
+.gl{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+.gl li{display:grid;grid-template-columns:18px 1fr;gap:8px;font-size:.92rem;line-height:1.45}
+.gl li::before{font-family:var(--f-mono);font-weight:500}
+.yes .gl li::before{content:"+";color:var(--gil)}
+.no .gl li::before{content:"×";color:var(--bad)}
+.coin{width:14px;height:14px;border-radius:50%;background:var(--gil);display:inline-block;box-shadow:inset 0 0 0 2px var(--gil-soft)}
+.price{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.price div{background:var(--bg);border-radius:4px;padding:8px 10px;display:flex;flex-direction:column}
+.price b{font-family:var(--f-mono);font-weight:500;color:var(--gil)}
+.price span{font-size:.72rem;color:var(--muted)}
+
+/* matrix */
+.matrix{display:grid;grid-template-columns:minmax(0,1.3fr) repeat(3,minmax(0,1fr));border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--surface)}
+.matrix>div{padding:12px 14px;border-bottom:1px solid var(--line);font-size:.88rem;display:flex;flex-direction:column;gap:6px;min-width:0}
+.matrix .mh{background:var(--raise);font-family:var(--f-mono);font-size:.69rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.matrix .last{border-bottom:none}
+.dots{display:flex;gap:4px}
+.dots i{width:10px;height:10px;border-radius:50%;border:1.5px solid var(--muted)}
+.dots i.on{background:var(--lav);border-color:var(--lav)}
+
+/* plan svg */
+.concept{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:20px;align-items:start}
+.plan-svg{width:100%;height:auto;display:block}
+.plan-svg .wall{fill:none;stroke:var(--lav);stroke-width:2}
+.plan-svg .zone-c{fill:var(--casual-soft);stroke:var(--casual);stroke-width:1.5}
+.plan-svg .zone-r{fill:var(--rp-soft);stroke:var(--rp);stroke-width:1.5}
+.plan-svg .zone-d{fill:var(--raid-soft);stroke:var(--raid);stroke-width:1.5}
+.plan-svg .door{fill:var(--bg);stroke:var(--lav);stroke-width:1.5}
+.plan-svg .t-c{fill:var(--casual)} .plan-svg .t-r{fill:var(--rp)} .plan-svg .t-d{fill:var(--raid)}
+.plan-svg .t{font-family:var(--f-body);font-size:15px;font-weight:600}
+.plan-svg .s{font-family:var(--f-body);font-size:12px;fill:var(--muted)}
+.plan-svg .addr{font-family:var(--f-mono);font-size:11px;fill:var(--muted)}
+.plan-svg .street{stroke:var(--line);stroke-width:1;stroke-dasharray:4 4;fill:none}
+.rooms{display:flex;flex-direction:column;gap:14px}
+.room{display:grid;grid-template-columns:12px 1fr;gap:12px}
+.room .sw{width:12px;height:12px;border-radius:2px;margin-top:6px}
+.room.c .sw{background:var(--casual)} .room.r .sw{background:var(--rp)} .room.d .sw{background:var(--raid)}
+.room p{font-size:.92rem}
+
+/* tables */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:600px;font-size:.9rem}
+th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--f-mono);font-size:.69rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:400;background:var(--raise)}
+tr:last-child td{border-bottom:none}
+td.n{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.total td{background:var(--raise);font-weight:600}
+tr.total td.n{color:var(--gil)}
+.sev{font-family:var(--f-mono);font-size:.69rem;text-transform:uppercase;letter-spacing:.05em;padding:2px 7px;border-radius:3px;white-space:nowrap;border:1px solid}
+.sev.h{color:var(--bad);border-color:var(--bad)} .sev.m{color:var(--warn);border-color:var(--warn)} .sev.l{color:var(--good);border-color:var(--good)}
+
+/* launch */
+.subnav{display:flex;flex-wrap:wrap;gap:8px}
+.subnav a{font-size:.84rem;text-decoration:none;color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:5px 12px;background:var(--surface)}
+.subnav a:hover{border-color:var(--lav)}
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;counter-reset:s}
+.steps li{display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px 16px}
+.steps li::before{counter-increment:s;content:counter(s);font-family:var(--f-mono);font-size:.82rem;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--lav-soft);color:var(--lav)}
+.steps .when{font-family:var(--f-mono);font-size:.72rem;color:var(--lav)}
+.steps p{font-size:.93rem}
+.pfl{display:flex;flex-direction:column;gap:8px}
+.pfl div{font-family:var(--f-mono);font-size:.8rem;background:var(--bg);border:1px solid var(--line);border-left:3px solid var(--lav-deep);border-radius:4px;padding:10px 12px;overflow-wrap:anywhere}
+.pfl div span{display:block;font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:2px}
+pre.tree{margin:0;font-family:var(--f-mono);font-size:.82rem;line-height:1.7;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:16px;overflow-x:auto;color:var(--ink)}
+pre.tree .cat{color:var(--lav)}
+pre.tree .pv{color:var(--muted)}
+.rolechips{display:flex;flex-wrap:wrap;gap:6px}
+.rolechips span{font-size:.8rem;padding:3px 9px;border-radius:999px;background:var(--raise);border:1px solid var(--line)}
+.sources ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:.88rem}
+footer{border-top:1px solid var(--line);padding-block:20px 40px;font-size:.8rem;color:var(--muted)}
+
+@media (max-width:860px){
+  .verdict,.charts,.concept,.grid3{grid-template-columns:minmax(0,1fr)}
+  .timeline{grid-template-columns:minmax(0,1fr)}
+  .timeline li{padding:0 0 16px 24px}
+  .timeline li::before{top:12px;bottom:-12px;left:5px;right:auto;width:1px;height:auto}
+  .timeline li:last-child::before{display:none}
+  .timeline li::after{top:4px}
+}
+@media (max-width:620px){
+  .grid2{grid-template-columns:minmax(0,1fr)}
+  .bar-row,.axis{grid-template-columns:74px minmax(0,1fr) 46px;font-size:.8rem}
+  .bar-row .status,.axis .sp{display:none}
+  .matrix{grid-template-columns:minmax(0,1fr) repeat(3,58px)}
+  .matrix .why{display:none}
+  .tz-row{grid-template-columns:76px minmax(0,1fr)}
+  .verdict{padding:20px}
+  .price{grid-template-columns:minmax(0,1fr)}
+}
+@media (prefers-reduced-motion:no-preference){
+  .panel-page{animation:fade .25s ease-out}
+  @keyframes fade{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:none}}
+}
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="wrap" style="display:flex;flex-direction:column;gap:14px">
+    <span class="label">Tonberry · Elemental data center · Venue brief · 6 Oct 2026</span>
+    <h1>Waypoint Venue Brief</h1>
+    <p class="dek">Research and launch plan for an English-first venue on Tonberry that links casual players, roleplayers and raiders. Pick a tab to jump between the research, the venue assessment and the step-by-step launch plan.</p>
+    <div class="chips">
+      <span class="chip">Patch <b>7.5x</b> · end of Dawntrail</span>
+      <span class="chip">Evercold <b>Jan 2027</b></span>
+      <span class="chip">Tonberry <b>Standard</b></span>
+      <span class="chip">Active players <b>7,639</b></span>
+    </div>
+  </div>
+</div>
+
+<nav class="tabbar" aria-label="Sections">
+  <div class="wrap">
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" id="t-overview" aria-controls="overview" aria-selected="true" data-tab="overview"><span class="n">01</span>Overview</button>
+      <button class="tab" role="tab" id="t-community" aria-controls="community" aria-selected="false" tabindex="-1" data-tab="community"><span class="n">02</span>Community</button>
+      <button class="tab" role="tab" id="t-crowds" aria-controls="crowds" aria-selected="false" tabindex="-1" data-tab="crowds"><span class="n">03</span>The crowds</button>
+      <button class="tab" role="tab" id="t-venue" aria-controls="venue" aria-selected="false" tabindex="-1" data-tab="venue"><span class="n">04</span>Venue test</button>
+      <button class="tab" role="tab" id="t-launch" aria-controls="launch" aria-selected="false" tabindex="-1" data-tab="launch"><span class="n">05</span>Launch plan</button>
+      <button class="tab" role="tab" id="t-budget" aria-controls="budget" aria-selected="false" tabindex="-1" data-tab="budget"><span class="n">06</span>Budget</button>
+      <button class="tab" role="tab" id="t-sources" aria-controls="sources" aria-selected="false" tabindex="-1" data-tab="sources"><span class="n">07</span>Sources</button>
+    </div>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<!-- OVERVIEW -->
+<section class="panel-page" id="overview" role="tabpanel" aria-labelledby="t-overview">
+  <div class="verdict">
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <span class="label">Bottom line</span>
+      <p class="big">Build a weekly connector night for English-speaking SEA players, opened before Evercold. Skip the big-budget nightclub model.</p>
+      <p class="muted">Unlimited gil removes the cost problem only. Venues close because of staff, regulars, housing luck and timing, and none of those are for sale.</p>
+    </div>
+    <ol>
+      <li><span>Tonberry is still Elemental's English hub, but it is one of eight similar-sized worlds on the smallest Japanese data center. The audience is real and modest.</span></li>
+      <li><span>Casual players have the clearest unmet need. RP is thin on Elemental and works as programming. Raiders come for matchmaking and old-content nights.</span></li>
+      <li><span>Switch 2 (August) and Evercold (January) bring new players who need an English landing spot. Open in mid-November to catch them.</span></li>
+    </ol>
+  </div>
+  <div class="sec-head"><span class="label">Where to go next</span></div>
+  <div class="jump">
+    <button data-go="community"><b>Community</b><span class="muted">Population, trends, calendar</span></button>
+    <button data-go="crowds"><b>The crowds</b><span class="muted">Casual, RP and raiders compared</span></button>
+    <button data-go="venue"><b>Venue test</b><span class="muted">What gil can and can't fix</span></button>
+    <button data-go="launch"><b>Launch plan</b><span class="muted">Staff, designers, PF, Discord, first steps</span></button>
+    <button data-go="budget"><b>Budget</b><span class="muted">Furnishing and hiring costs</span></button>
+  </div>
+</section>
+
+<!-- COMMUNITY -->
+<section class="panel-page" id="community" role="tabpanel" aria-labelledby="t-community" hidden>
+  <div class="sec-head">
+    <span class="label">02 · The ground</span>
+    <h2>What the community looks like now</h2>
+    <p class="prose muted">Populations come from the April 2026 community census (Lucky Bancho, via Dot Esports). World status is the official Lodestone reading for October 2026.</p>
+  </div>
+  <div class="charts">
+    <div class="card">
+      <div><h3>Elemental worlds by active players</h3><p class="note">April 2026 census · status as of Oct 2026</p></div>
+      <div class="bars num" role="img" aria-label="Active players on Elemental worlds: Gungnir 7,816; Tonberry 7,639; Carbuncle 7,472; Garuda 7,449; Atomos 7,366; Aegis 7,122; Kujata 7,021; Typhon 6,932.">
+        <div class="bar-row"><span class="name">Gungnir</span><div class="track"><div class="fill" style="width:97.7%"></div></div><span class="val">7,816</span><span class="status st-std">Standard</span></div>
+        <div class="bar-row hl"><span class="name">Tonberry</span><div class="track"><div class="fill" style="width:95.5%"></div></div><span class="val">7,639</span><span class="status st-std">Standard</span></div>
+        <div class="bar-row"><span class="name">Carbuncle</span><div class="track"><div class="fill" style="width:93.4%"></div></div><span class="val">7,472</span><span class="status st-pref">Preferred</span></div>
+        <div class="bar-row"><span class="name">Garuda</span><div class="track"><div class="fill" style="width:93.1%"></div></div><span class="val">7,449</span><span class="status st-std">Standard</span></div>
+        <div class="bar-row"><span class="name">Atomos</span><div class="track"><div class="fill" style="width:92.1%"></div></div><span class="val">7,366</span><span class="status st-std">Standard</span></div>
+        <div class="bar-row"><span class="name">Aegis</span><div class="track"><div class="fill" style="width:89.0%"></div></div><span class="val">7,122</span><span class="status st-pref">Preferred</span></div>
+        <div class="bar-row"><span class="name">Kujata</span><div class="track"><div class="fill" style="width:87.8%"></div></div><span class="val">7,021</span><span class="status st-pref">Preferred</span></div>
+        <div class="bar-row"><span class="name">Typhon</span><div class="track"><div class="fill" style="width:86.7%"></div></div><span class="val">6,932</span><span class="status st-pref">Preferred</span></div>
+        <div class="axis"><span></span><div class="ticks"><span style="left:0">0</span><span style="left:25%">2k</span><span style="left:50%">4k</span><span style="left:75%">6k</span><span style="left:100%">8k</span></div><span></span><span class="sp"></span></div>
+      </div>
+      <p class="note">All eight worlds sit within 900 players of each other. Tonberry's reputation as the English world is cultural now, not a size advantage.</p>
+    </div>
+    <div class="card dc">
+      <div><h3>Japanese data centers, plus Oceania</h3><p class="note">Active players, April 2026 census</p></div>
+      <div class="bars num" role="img" aria-label="Active players by data center: Mana 70,725; Gaia 67,472; Meteor 64,549; Elemental 58,817; Materia 10,823.">
+        <div class="bar-row"><span class="name">Mana</span><div class="track"><div class="fill" style="width:88.4%"></div></div><span class="val">70,725</span></div>
+        <div class="bar-row"><span class="name">Gaia</span><div class="track"><div class="fill" style="width:84.3%"></div></div><span class="val">67,472</span></div>
+        <div class="bar-row"><span class="name">Meteor</span><div class="track"><div class="fill" style="width:80.7%"></div></div><span class="val">64,549</span></div>
+        <div class="bar-row hl"><span class="name">Elemental</span><div class="track"><div class="fill" style="width:73.5%"></div></div><span class="val">58,817</span></div>
+        <div class="bar-row"><span class="name">Materia</span><div class="track"><div class="fill" style="width:13.5%"></div></div><span class="val">10,823</span></div>
+        <div class="axis"><span></span><div class="ticks"><span style="left:0">0</span><span style="left:50%">40k</span><span style="left:100%">80k</span></div><span></span></div>
+      </div>
+      <p class="note">Elemental is the smallest Japanese data center, so its Duty Finder and Party Finder pools are the thinnest of the four.</p>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <article class="card"><span class="ev">Community reports · long-running</span><h3>Two communities share one world</h3><p>English speakers dominate the visible social layer: free companies, Party Finder, hunts and linkshells. Duty Finder skews Japanese, and Japanese players mostly run their own events. Players have long described the split as roughly even, with the English side louder.</p></article>
+    <article class="card"><span class="ev inf">Inference</span><h3>The English crowd now leans Southeast Asian</h3><p>Tonberry became the English home for SEA and Oceanic players before Materia (Oceania's own data center, 2022) existed. With Australia and New Zealand now served by Materia, the English base reads more GMT+8 than Australian.</p></article>
+    <article class="card"><span class="ev data">Raid guides</span><h3>Raiding culture splits by difficulty</h3><p>Savage Party Finder on Elemental follows Japanese macros. Japanese players don't run Ultimates through Party Finder here, so English players set those strategies through their own Discords. Dancing Mad (Ultimate, patch 7.51) is the current prog target.</p></article>
+    <article class="card"><span class="ev data">News</span><h3>Social play took two hits</h3><p>August 2024 travel limits on congested worlds made venue hopping harder and started a shakeout of the post-Endwalker venue boom. In August 2025 the Mare Synchronos mod, which much of the RP scene used to share custom looks, shut down after a legal inquiry.</p></article>
+    <article class="card"><span class="ev data">Etiquette</span><h3>Japanese norms set the tone</h3><p>Party Finder listings marked J only are meant for Japanese speakers. Shouting for groups is less welcome on Japanese worlds than on NA ones. English players do best queuing with both J and E ticked and keeping social chat in English spaces.</p></article>
+    <article class="card"><span class="ev">News · plus inference</span><h3>A newcomer wave is lined up</h3><p>The Switch 2 version launched on 4 August 2026 and Evercold arrives in January 2027. Aegis, Carbuncle, Kujata and Typhon are Preferred and will take new characters, who can visit Tonberry freely within the data center.</p></article>
+  </div>
+
+  <div class="card">
+    <div><h3>The calendar that shapes the next six months</h3><p class="note">Filled dots are still ahead</p></div>
+    <ol class="timeline">
+      <li><span class="when">Aug 2024</span><span class="what">Travel limits on congested worlds hit venue hopping</span></li>
+      <li><span class="when">Aug 2025</span><span class="what">Mare Synchronos shuts down; Yoshida statement on mods</span></li>
+      <li><span class="when">2 Jun 2026</span><span class="what">Patch 7.51 · Dancing Mad (Ultimate)</span></li>
+      <li><span class="when">28 Jul 2026</span><span class="what">Patch 7.55 · final Dawntrail story patch</span></li>
+      <li><span class="when">4 Aug 2026</span><span class="what">Switch 2 version and free trial launch</span></li>
+      <li class="ahead"><span class="when">Oct 2026</span><span class="what">Tokyo Fan Festival · more Evercold details</span></li>
+      <li class="ahead"><span class="when">Jan 2027</span><span class="what">Evercold · level 110, Bastion tank job</span></li>
+    </ol>
+  </div>
+</section>
+
+<!-- CROWDS -->
+<section class="panel-page" id="crowds" role="tabpanel" aria-labelledby="t-crowds" hidden>
+  <div class="sec-head">
+    <span class="label">03 · The crowds</span>
+    <h2>Three crowds, three rhythms</h2>
+    <p class="prose muted">Each crowd is shown as the Party Finder listing it would post, then where it gathers, what it wants, and how well a venue serves it.</p>
+  </div>
+  <div class="grid3">
+    <article class="seg c">
+      <div class="pf"><span class="lang">E</span><span class="lang">J</span><span>Casual · FC house · 21:00 GMT+8</span></div>
+      <div class="seg-body">
+        <div><h3>Casual chatters</h3><p class="muted" style="font-size:.9rem">The largest English group, and the clearest gap.</p></div>
+        <dl>
+          <div><dt>Where they gather</dt><dd>GMT+8 international free companies and their Discords, FC estates, hunt trains, and Party Finder for maps, field operations and Cosmic Exploration.</dd></div>
+          <div><dt>Rhythm</dt><dd>Light weeknights, heavier weekends. Spikes at patch drops and seasonal events.</dd></div>
+          <div><dt>What they want</dt><dd>English conversation outside instances, low commitment, somewhere to show off glamours and housing.</dd></div>
+          <div><dt>Friction</dt><dd>Quiet Japanese Duty Finder parties. Small FCs go dormant late in an expansion, which is where Dawntrail is now.</dd></div>
+          <div><dt>What a venue gives them</dt><dd>A fixed weekly place to meet people beyond their own FC.</dd></div>
+        </dl>
+        <div class="fit"><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i></span><span><b>Venue fit: high.</b> Core audience.</span></div>
+      </div>
+    </article>
+    <article class="seg r">
+      <div class="pf"><span class="lang">E</span><span>RP · Goblet W12 P41 · weekly</span></div>
+      <div class="seg-body">
+        <div><h3>Roleplayers</h3><p class="muted" style="font-size:.9rem">Small and loyal. They make a venue memorable but can't fill it alone.</p></div>
+        <dl>
+          <div><dt>Where they gather</dt><dd>English RP linkshells and Discords, a few SFW venues such as Izakaya Himitsu (Tonberry, The Goblet, W12 P41), and FC houses. The game's RP centre stays on NA Crystal.</dd></div>
+          <div><dt>Rhythm</dt><dd>Scheduled nights of two to three hours that depend on regulars.</dd></div>
+          <div><dt>What they want</dt><dd>Consistency, immersion, low drama, clear rules. Cozy taverns over loud clubs.</dd></div>
+          <div><dt>Friction</dt><dd>Thin numbers on Elemental, the loss of synced custom looks after Mare, staff burnout.</dd></div>
+          <div><dt>What a venue gives them</dt><dd>A stage, and non-RP guests who might try it.</dd></div>
+        </dl>
+        <div class="fit"><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i></span><span><b>Venue fit: medium.</b> The programme, not the base.</span></div>
+      </div>
+    </article>
+    <article class="seg d">
+      <div class="pf"><span class="lang">E</span><span>Throwback · Min iLvl · learning</span></div>
+      <div class="seg-body">
+        <div><h3>Raiders</h3><p class="muted" style="font-size:.9rem">Already organised. They come if a venue saves them time or offers something new.</p></div>
+        <dl>
+          <div><dt>Where they gather</dt><dd>Party Finder, statics, and English Discords for Elemental Ultimate pugs and raid macros. Some travel to Mana for Savage.</dd></div>
+          <div><dt>Rhythm</dt><dd>Locked raid nights and reclears. A burst at each new tier, then churn as statics break up.</dd></div>
+          <div><dt>What they want</dt><dd>Reliable statics, fill-ins, clears, and fresh challenges between tiers.</dd></div>
+          <div><dt>Friction</dt><dd>Static churn, J-only listings, and a long gap before Evercold's first tier.</dd></div>
+          <div><dt>What a venue gives them</dt><dd>A recruitment board and weekly synced old-content nights.</dd></div>
+        </dl>
+        <div class="fit"><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i></span><span><b>Venue fit: medium</b> through throwback nights.</span></div>
+      </div>
+    </article>
+  </div>
+
+  <div class="card">
+    <div><h3>When the three player regions are online</h3><p class="note">Shown in GMT+8. Assumes 8 pm to midnight local evenings and Australian daylight time (Oct–Apr).</p></div>
+    <div class="tz" role="img" aria-label="Australian evenings run 17:00 to 21:00 GMT+8, Japanese 19:00 to 23:00, Southeast Asian 20:00 to 24:00. A 20:00 to 23:00 core window covers Japan and Southeast Asia fully.">
+      <div class="tz-row"><span>Australia (AEDT)</span><div class="tz-track"><div class="tz-bar" style="left:25%;width:33.33%;background:var(--muted)">17–21</div><div class="tz-core" style="left:50%;width:25%"></div></div></div>
+      <div class="tz-row"><span>Japan (JST)</span><div class="tz-track"><div class="tz-bar" style="left:41.67%;width:33.33%;background:var(--rp)">19–23</div><div class="tz-core" style="left:50%;width:25%"></div></div></div>
+      <div class="tz-row"><span>SEA (GMT+8)</span><div class="tz-track"><div class="tz-bar" style="left:50%;width:33.33%;background:var(--casual)">20–24</div><div class="tz-core" style="left:50%;width:25%"></div></div></div>
+      <div class="tz-row"><span></span><div class="tz-hours"><span style="left:0;transform:none">14:00</span><span style="left:25%">17:00</span><span style="left:50%">20:00</span><span style="left:75%">23:00</span><span style="left:100%;transform:translateX(-100%)">02:00</span></div></div>
+    </div>
+    <p class="note">Dashed box: a 20:00–23:00 GMT+8 core window catches every SEA and Japanese evening and the tail of the Australian one.</p>
+  </div>
+</section>
+
+<!-- VENUE -->
+<section class="panel-page" id="venue" role="tabpanel" aria-labelledby="t-venue" hidden>
+  <div class="sec-head">
+    <span class="label">04 · Venue test</span>
+    <h2>The venue idea, stress-tested</h2>
+    <p class="prose muted">Unlimited gil is the premise. It solves the money side completely and leaves the hard parts untouched.</p>
+  </div>
+  <div class="grid2">
+    <div class="card yes">
+      <h3 style="display:flex;align-items:center;gap:8px"><span class="coin" aria-hidden="true"></span>What gil buys</h3>
+      <ul class="gl"><li>Any plot you win. Typical asking prices:</li></ul>
+      <div class="price num"><div><b>3–5M</b><span>Small plot</span></div><div><b>15–20M</b><span>Medium plot</span></div><div><b>40–50M</b><span>Large plot</span></div></div>
+      <ul class="gl"><li>A professional designer and full furnishing.</li><li>Prizes, bounties, staff wages.</li><li>Relocation to a better ward later.</li></ul>
+    </div>
+    <div class="card no">
+      <h3>What gil can't buy</h3>
+      <ul class="gl">
+        <li>Regulars. Venues that opened on giveaways alone became the clones players now mock.</li>
+        <li>Staff who stay. A venue veteran reported wage bidding wars pushed running costs to over four times their original level.</li>
+        <li>A time zone that suits everyone, or a bridge across the language split.</li>
+        <li>Safety for bought gil. Real-money trading breaks the terms of service and Square Enix bans accounts in large waves.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <div><h3>How each crowd scores against the idea</h3><p class="note">Qualitative ratings from the research, three dots is strongest</p></div>
+    <div class="matrix">
+      <div class="mh">Factor</div><div class="mh">Casual</div><div class="mh">RP</div><div class="mh">Raid</div>
+      <div><b>Numbers on Elemental</b><span class="muted why">English players to draw on</span></div>
+      <div><span class="dots" role="img" aria-label="3 of 3"><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
+      <div><span class="dots" role="img" aria-label="1 of 3"><i class="on"></i><i></i><i></i></span></div>
+      <div><span class="dots" role="img" aria-label="2 of 3"><i class="on"></i><i class="on"></i><i></i></span></div>
+      <div><b>Unmet need</b><span class="muted why">A gap a venue fills</span></div>
+      <div><span class="dots" role="img" aria-label="3 of 3"><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
+      <div><span class="dots" role="img" aria-label="2 of 3"><i class="on"></i><i class="on"></i><i></i></span></div>
+      <div><span class="dots" role="img" aria-label="2 of 3"><i class="on"></i><i class="on"></i><i></i></span></div>
+      <div><b>Fits a weekly night</b><span class="muted why">Would they show up on schedule</span></div>
+      <div><span class="dots" role="img" aria-label="2 of 3"><i class="on"></i><i class="on"></i><i></i></span></div>
+      <div><span class="dots" role="img" aria-label="3 of 3"><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
+      <div><span class="dots" role="img" aria-label="2 of 3"><i class="on"></i><i class="on"></i><i></i></span></div>
+      <div class="last"><b>Gil leverage</b><span class="muted why">Does spending move them</span></div>
+      <div class="last"><span class="dots" role="img" aria-label="2 of 3"><i class="on"></i><i class="on"></i><i></i></span></div>
+      <div class="last"><span class="dots" role="img" aria-label="1 of 3"><i class="on"></i><i></i><i></i></span></div>
+      <div class="last"><span class="dots" role="img" aria-label="2 of 3"><i class="on"></i><i class="on"></i><i></i></span></div>
+    </div>
+  </div>
+
+  <div class="concept">
+    <div class="card">
+      <div><h3>A layout that links the three crowds</h3><p class="note">Working name "Waypoint" · large plot, three zones</p></div>
+      <svg class="plan-svg" viewBox="0 0 520 380" role="img" aria-label="Floor plan sketch: entrance opens into the Lounge, with the Stage room on the left and the Board on the right.">
+        <path class="street" d="M10 360 H510"/>
+        <text class="addr" x="14" y="352">ward street</text>
+        <rect class="wall" x="40" y="30" width="440" height="300" rx="4"/>
+        <rect class="zone-r" x="52" y="42" width="168" height="170" rx="3"/>
+        <rect class="zone-d" x="300" y="42" width="168" height="170" rx="3"/>
+        <rect class="zone-c" x="52" y="222" width="416" height="96" rx="3"/>
+        <rect class="door" x="236" y="322" width="48" height="16" rx="2"/>
+        <text class="t t-r" x="66" y="74">Stage room</text>
+        <text class="s" x="66" y="96">RP nights, story arcs</text>
+        <text class="s" x="66" y="114">SFW, rules posted</text>
+        <text class="t t-d" x="314" y="74">The Board</text>
+        <text class="s" x="314" y="96">Throwback raid sign-ups</text>
+        <text class="s" x="314" y="114">Static matchmaking, clears wall</text>
+        <text class="t t-c" x="66" y="252">Lounge</text>
+        <text class="s" x="66" y="274">Open floor, greeters, FC and linkshell boards,</text>
+        <text class="s" x="66" y="292">newcomer desk for Switch 2 and Evercold arrivals</text>
+        <text class="addr" x="226" y="160">courtyard</text>
+        <text class="addr" x="244" y="356">entry</text>
+      </svg>
+    </div>
+    <div class="rooms">
+      <div class="room c"><span class="sw"></span><div><h3>Lounge for the casual crowd</h3><p>The default room. Greeters say hello in English, and signs carry short Japanese lines so Japanese visitors feel welcome. FCs and linkshells pin recruitment notes, which makes your venue part of their recruiting.</p></div></div>
+      <div class="room r"><span class="sw"></span><div><h3>Stage for roleplay</h3><p>One light-RP night a week that casual guests can join without a character sheet, plus a monthly story arc for regulars. SFW and readable on a vanilla client.</p></div></div>
+      <div class="room d"><span class="sw"></span><div><h3>The Board for raiders</h3><p>Sign-ups for weekly synced throwback raids, a static matchmaking night at each new tier, and a wall of clears. Gil goes into bounties for groups formed here, not door prizes.</p></div></div>
+    </div>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Risk</th><th>Severity</th><th>Why it matters here</th><th>Mitigation</th></tr></thead>
+      <tbody>
+        <tr><td><b>Staffing and burnout</b></td><td><span class="sev h">High</span></td><td>Venues run on volunteer hours. Wage wars raised costs elsewhere without buying loyalty.</td><td>Six to eight core staff on a rota, one fixed night a week, modest steady pay.</td></tr>
+        <tr><td><b>Thin RP base</b></td><td><span class="sev h">High</span></td><td>Elemental's RP scene is small next to NA Crystal.</td><td>Lead with the lounge. Treat RP as programming that converts casual guests.</td></tr>
+        <tr><td><b>Language divide</b></td><td><span class="sev m">Medium</span></td><td>Half the world keeps to Japanese-language spaces.</td><td>Be English-first and say so. Bilingual signs, not a Japanese service you can't staff.</td></tr>
+        <tr><td><b>Clone fatigue</b></td><td><span class="sev m">Medium</span></td><td>Players see many venues as interchangeable nightclubs.</td><td>Sell outcomes: friends made, statics formed, raids cleared.</td></tr>
+        <tr><td><b>Mods and rules</b></td><td><span class="sev m">Medium</span></td><td>Square Enix acted on mod sharing in 2025. Real-money trading is bannable.</td><td>Vanilla-client friendly, gil-only economy, no real-money tips, no mod-gated entry.</td></tr>
+        <tr><td><b>Launch congestion</b></td><td><span class="sev l">Low</span></td><td>If Tonberry turns Congested around Evercold, visits from other worlds get harder.</td><td>Watch Lodestone status. Keep a backup night on a quiet date.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- LAUNCH -->
+<section class="panel-page" id="launch" role="tabpanel" aria-labelledby="t-launch" hidden>
+  <div class="sec-head">
+    <span class="label">05 · Launch plan</span>
+    <h2>From empty plot to opening night</h2>
+    <p class="prose muted">Assumes you already hold a large plot on Tonberry. Jump to a part:</p>
+    <nav class="subnav" aria-label="Launch plan parts">
+      <a href="#l-steps">First steps</a><a href="#l-staff">Staff</a><a href="#l-design">Designers</a><a href="#l-raid">Raiders and Party Finder</a><a href="#l-discord">Discord</a><a href="#l-meet">Where to meet people</a>
+    </nav>
+  </div>
+
+  <div class="sub" id="l-steps">
+    <h3 style="font-size:1.25rem;font-family:var(--f-display);font-weight:400">First steps, starting this week</h3>
+    <ol class="steps">
+      <li><div><span class="when">Week 1</span><p>Write a one-paragraph concept and house rules. Pick the name and a fixed night between 20:00 and 23:00 GMT+8. Set up the Discord skeleton, a cross-world linkshell and a simple carrd page.</p></div></li>
+      <li><div><span class="when">Week 1</span><p>Recruit two officers you already trust. They cover nights you can't and set the culture.</p></div></li>
+      <li><div><span class="when">Weeks 1–2</span><p>Brief and hire a designer. A large build takes up to four weeks, so start now.</p></div></li>
+      <li><div><span class="when">Weeks 2–4</span><p>Run two or three throwback raid nights through Party Finder. They need no house, so the raid side grows while the venue is decorated.</p></div></li>
+      <li><div><span class="when">Weeks 2–4</span><p>Partner with three to five English FCs on Tonberry and Kujata. Offer them a recruitment board in the lounge.</p></div></li>
+      <li><div><span class="when">Week 3</span><p>Recruit the rest of the staff and run trial shifts.</p></div></li>
+      <li><div><span class="when">Weeks 4–5</span><p>Soft-open for Discord members, then open publicly with a Party Finder listing, a Lodestone event and a Reddit post. Mid-November leaves time for newcomer nights before Evercold.</p></div></li>
+    </ol>
+  </div>
+
+  <div class="sub" id="l-staff">
+    <h3 style="font-size:1.25rem;font-family:var(--f-display);font-weight:400">Recruiting staff for the first opening</h3>
+    <div class="grid2">
+      <div class="card">
+        <h3>Where to find them</h3>
+        <ul class="clean">
+          <li><b>English FCs on Tonberry and Kujata.</b> Use the Lodestone Community Finder (Elemental, English) and message FC leaders. Their members staff a night, their FC gets lounge exposure.</li>
+          <li><b>Existing English venues on Tonberry,</b> such as Izakaya Himitsu. Experienced staff often work several venues. Partner, don't poach.</li>
+          <li><b>SEA player groups.</b> A 2021 Lowyat thread pointed Malaysian players to Tonberry and to a Facebook group for SEA and Oceanic players on the Japanese data center. Check it is still active.</li>
+          <li><b>r/ffxivrecruitment</b> with an [Elemental] tag.</li>
+          <li><b>Venue-owner Discords.</b> They exist but lean NA/EU.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Opening-night roster</h3>
+        <div class="rolechips"><span>Host / manager ×1</span><span>Greeters ×2</span><span>Bartender ×1</span><span>RP lead ×1</span><span>Board host ×1</span><span>Moderator ×1</span><span>Bard or DJ (optional)</span></div>
+        <p class="note">Recruit in this order: two trusted officers, then experienced venue staff, then the wider pool. Use a trial shift before confirming anyone.</p>
+        <p style="font-size:.93rem">Pay steadily and modestly. One published rate is about 300k gil per night plus tips. Outbidding other venues brings staff who leave for the next offer.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub" id="l-design">
+    <h3 style="font-size:1.25rem;font-family:var(--f-display);font-weight:400">Hiring a designer</h3>
+    <div class="grid2">
+      <div class="card">
+        <h3>The Elemental catch</h3>
+        <p style="font-size:.93rem">Most designers with public price lists play on NA or EU. Materia is the only data center all regions can visit, so an NA or EU character can't reach Tonberry. The designer needs a character on Tonberry itself, because some housing and all FC functions are unavailable while visiting from another world.</p>
+        <ul class="clean">
+          <li>Personal estate: add them as a tenant in the estate's shared settings.</li>
+          <li>FC estate: invite them to the FC with furnishing permissions.</li>
+          <li>Send furniture gil to their Tonberry character; unused budget usually comes back.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Where to look and what to ask</h3>
+        <ul class="clean">
+          <li>Designers' carrd pages (see the Budget tab), Elemental Discords, and the Japanese housing community on X under #FF14ハウジング.</li>
+          <li>Ask for venue builds in their portfolio, deposit terms (50% upfront is common), turnaround, and whether unused budget is returned.</li>
+          <li>Ask how they place items. Some use third-party layout plugins, which sit outside the terms of service.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub" id="l-raid">
+    <h3 style="font-size:1.25rem;font-family:var(--f-display);font-weight:400">Raiders who want older expansions</h3>
+    <div class="grid2">
+      <div class="card">
+        <h3>Throwback nights</h3>
+        <p style="font-size:.93rem">Weekly synced (Minimum Item Level) old raids. Syncademy proved the model on the Light data center, growing to about 1,900 Discord members. No English equivalent turned up on Elemental.</p>
+        <ul class="clean">
+          <li>Rotate one expansion a week: Coils, Alexander, Omega, Eden, Pandæmonium, plus old Extreme trials.</li>
+          <li>Once a month, a learning party for an older Ultimate. Elemental's Ultimate PF is already English-led.</li>
+          <li>Hooks at the venue: a clears wall, and an expansion passport stamped per raid, with a glamour or gil prize for a full one.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Listing it in Party Finder</h3>
+        <ul class="clean">
+          <li>Post the duty in its own category, on the Data Center tab.</li>
+          <li>Objective: Practice for prog, Duty Completion for clears. Condition: Duty Incomplete on first-timer nights.</li>
+          <li>Tick E and J and add 英語メイン・日本語OK ("mainly English, Japanese OK").</li>
+          <li>Start every listing with the same tag so people learn it.</li>
+          <li>Put the venue social night under the Other category.</li>
+          <li>Never offer runs for sale (banned since 2021) and keep wording clean; players reported suspensions over a suggestive RP venue listing in 2022.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Example listings</h3>
+      <div class="pfl">
+        <div><span>Raids · Practice · Min iLvl</span>[WPT] Throwback A4S · first clears welcome · 21:00 GMT+8 · afterparty Tonberry &lt;district&gt; W__ P__ · 英語メイン・日本語OK</div>
+        <div><span>High-end duty · Practice</span>[WPT] UWU learning party · P1 prog · Elemental EN strats · no voice needed</div>
+        <div><span>Other</span>[WPT] Waypoint social night · Tonberry &lt;district&gt; W__ P__ · 20:00–23:00 GMT+8 · SFW · all welcome</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub" id="l-discord">
+    <h3 style="font-size:1.25rem;font-family:var(--f-display);font-weight:400">Setting up the Discord</h3>
+    <div class="grid2">
+      <pre class="tree" aria-label="Discord channel layout"><span class="cat">START HERE</span>   #welcome  #rules  #announcements
+<span class="cat">WAYPOINT</span>     #events  #venue-info  #screenshots
+<span class="cat">SOCIAL</span>       #general  #introductions  #glam-and-housing
+<span class="cat">THE BOARD</span>    #lfg-lfm  #throwback-signups  #strats  #clears
+<span class="cat">STAGE</span>        #rp-info  #story-arcs
+<span class="cat">STAFF</span>        #staff-chat  #rota  #incident-log  #applications <span class="pv">(private)</span>
+<span class="cat">VOICE</span>        Lounge · Raid 1 · Raid 2</pre>
+      <div class="card">
+        <h3>Settings that matter on day one</h3>
+        <ul class="clean">
+          <li>Turn on Community features and Onboarding so members pick roles: Casual / RP / Raider, Tank / Healer / DPS, time zone, EN / JP.</li>
+          <li>Raid-Helper for sign-ups with role slots. Discord's built-in AutoMod for moderation.</li>
+          <li>Rules: SFW server-wide, gil-only economy, no real-money trading, no mod requirements, how OOC disputes are handled.</li>
+          <li>Two moderators covering different hours. Mirror it with an in-game cross-world linkshell.</li>
+          <li>Start with these channels and add more only when one gets busy.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub" id="l-meet">
+    <h3 style="font-size:1.25rem;font-family:var(--f-display);font-weight:400">Where to meet people</h3>
+    <div class="grid2">
+      <div class="card"><h3>In game</h3><ul class="clean"><li>Hunt trains, field operations and treasure maps, where chat flows naturally.</li><li>Your own throwback Party Finder nights, the best recruiting tool you have.</li><li>Other English venues and FC events. Befriend the owners.</li><li>Shout chat sparingly; shout spam is unwelcome on Japanese worlds.</li></ul></div>
+      <div class="card"><h3>Online</h3><ul class="clean"><li>Lodestone Community Finder (list your linkshell) and Event &amp; Party Recruitment (filter Elemental and English).</li><li>Elemental Ultimate Pugs and Elemental DC Raid Macros Discords.</li><li>r/ffxivrecruitment, the SEA Facebook group, the Lowyat forum.</li><li>X and Bluesky for screenshots of the build.</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- BUDGET -->
+<section class="panel-page" id="budget" role="tabpanel" aria-labelledby="t-budget" hidden>
+  <div class="sec-head">
+    <span class="label">06 · Budget</span>
+    <h2>Furnishing and hiring costs</h2>
+    <p class="prose muted">Plot excluded. Designer fees come from public NA/EU price lists; Elemental market prices for furniture will differ, so treat every figure as a planning range.</p>
+  </div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Designer</th><th>Large interior fee</th><th>Exterior</th><th>Furniture budget</th><th>Turnaround</th></tr></thead>
+      <tbody>
+        <tr><td><a href="https://thetaydesigns.carrd.co">Tay Designs</a></td><td class="n">10–15M</td><td>not listed</td><td>separate (medium house 8–20M)</td><td>3–4 weeks</td></tr>
+        <tr><td><a href="https://felvyperdesigns.carrd.co">Felvyper</a></td><td class="n">15M</td><td class="n">1–2M</td><td>separate</td><td>up to 2 weeks</td></tr>
+        <tr><td><a href="https://koko-housing.carrd.co/">koko</a></td><td class="n">25M / 18M premade</td><td>not listed</td><td>minimum 5M</td><td>3–14 days</td></tr>
+        <tr><td><a href="https://lilisdesigngarden.carrd.co">Lili's Design Garden</a></td><td class="n">30M</td><td>included</td><td>separate</td><td>not stated</td></tr>
+        <tr><td><a href="https://starflower-housing.carrd.co">Starflower</a></td><td class="n">30M</td><td class="n">5M</td><td>agreed per client</td><td>not stated</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Item</th><th>Low</th><th>High</th><th>Basis</th></tr></thead>
+      <tbody>
+        <tr><td>Design fee + exterior</td><td class="n">10M</td><td class="n">35M</td><td>Price lists above</td></tr>
+        <tr><td>Furniture</td><td class="n">20M</td><td class="n">50M</td><td>Estimate for a large three-zone build</td></tr>
+        <tr class="total"><td>One-off total</td><td class="n">30M</td><td class="n">85M</td><td></td></tr>
+        <tr><td>Staff, 4 nights a month</td><td class="n">7.2M</td><td class="n">24M</td><td>6 × 300k up to 8 × 750k per night</td></tr>
+        <tr><td>Performers</td><td class="n">2M</td><td class="n">8M</td><td>Placeholder; no published rates found</td></tr>
+        <tr><td>Raid bounties and prizes</td><td class="n">5M</td><td class="n">5M</td><td>Your choice</td></tr>
+        <tr class="total"><td>Monthly total</td><td class="n">~14M</td><td class="n">~37M</td><td></td></tr>
+        <tr class="total"><td>Setup plus first three months</td><td class="n">~73M</td><td class="n">~196M</td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">Gil only. Pay staff and designers in-game; never buy gil with real money.</p>
+</section>
+
+<!-- SOURCES -->
+<section class="panel-page sources" id="sources" role="tabpanel" aria-labelledby="t-sources" hidden>
+  <div class="sec-head">
+    <span class="label">07 · Sources</span>
+    <h2>Where this comes from</h2>
+    <p class="prose muted">Some community observations come from older forum threads and are marked as long-running reports. Figures and status are from 2026 sources.</p>
+  </div>
+  <ol>
+    <li><a href="https://dotesports.com/ff/news/all-final-fantasy-xiv-server-populations">Dot Esports: FFXIV server populations 2026</a></li>
+    <li><a href="https://na.finalfantasyxiv.com/lodestone/worldstatus/">Lodestone: server status</a></li>
+    <li><a href="https://dotesports.com/ff/guides/final-fantasy-xiv-evercold-explained">Dot Esports: Evercold explained</a></li>
+    <li><a href="https://ffxiv.consolegameswiki.com/wiki/FF14_Wiki">Console Games Wiki: current patch</a></li>
+    <li><a href="https://ffxiv.consolegameswiki.com/wiki/Data_Center">Console Games Wiki: data centers</a></li>
+    <li><a href="https://consolegameswiki.com/wiki/Party_Finder">Console Games Wiki: Party Finder</a></li>
+    <li><a href="https://ffxiv.tuufless.com/about">Elemental DC Raid Macros: about Elemental</a></li>
+    <li><a href="https://ffxiv.tuufless.com/ultimates">Elemental DC Raid Macros: Ultimates</a></li>
+    <li><a href="https://www.icy-veins.com/ffxiv/dancing-mad-ultimate-guide-and-overview">Icy Veins: Dancing Mad (Ultimate)</a></li>
+    <li><a href="https://forum.square-enix.com/ffxiv/threads/242314-Japanese-vs-English-Population-on-Tonberry">FFXIV forum: Japanese vs English population on Tonberry</a></li>
+    <li><a href="https://forum.square-enix.com/ffxiv/showthread.php?p=4444224">FFXIV forum: SEA and Oceanic players</a></li>
+    <li><a href="https://forum.square-enix.com/ffxiv/threads/507498-Feedback-Data-Center-Travel-Changes?p=6578818">FFXIV forum: Data Center Travel feedback (Aug 2024)</a></li>
+    <li><a href="https://izakayahimitsu.carrd.co/">Izakaya Himitsu</a></li>
+    <li><a href="https://www.icy-veins.com/ffxiv/news/after-mare-synchronos-shut-down-whats-next-for-ffxiv/">Icy Veins: after Mare Synchronos shut down</a></li>
+    <li><a href="https://www.rpgsite.net/news/18291-final-fantasy-xiv-producer-and-director-naoki-yoshida-releases-statement-regarding-mod-usage-and-culture">RPG Site: Yoshida statement on mods</a></li>
+    <li><a href="https://twinfinite.net/guides/ffxiv-housing-lottery-how-it-works-current-schedule/">Twinfinite: housing lottery and plot prices</a></li>
+    <li><a href="https://destructoid.com/?p=264896">Destructoid: real-money trading bans</a></li>
+    <li><a href="https://lunarlotusvenue.carrd.co/">Lunar Lotus: staff pay</a></li>
+    <li><a href="https://forum.lowyat.net/topic/5123497">Lowyat: Malaysian players and Tonberry</a></li>
+    <li><a href="https://forum.square-enix.com/ffxiv/threads/410392-FC-Syncademy">FFXIV forum: Syncademy</a></li>
+    <li><a href="https://massivelyop.com/?p=359784">Massively OP: Party Finder run-selling ban</a></li>
+    <li><a href="https://forum.square-enix.com/ffxiv/showthread.php?p=5809419">FFXIV forum: RP Party Finder suspensions</a></li>
+    <li><a href="https://primagames.com/featured/final-fantasy-xivs-club-scene-is-all-the-rage">Prima Games: FFXIV club scene</a></li>
+    <li><a href="https://na.finalfantasyxiv.com/lodestone/event/">Lodestone: Event &amp; Party Recruitment</a></li>
+    <li><a href="https://www.akhmorning.com/resources/communities/">Akhmorning: communities</a></li>
+    <li><a href="https://discordbotlist.com/bots/raid-helper">Raid-Helper bot</a></li>
+  </ol>
+</section>
+
+</main>
+<footer><div class="wrap">Waypoint Venue Brief · compiled 6 October 2026 · FINAL FANTASY XIV is a registered trademark of Square Enix. This is an unofficial fan planning page.</div></footer>
+
+<script>
+(function(){
+  var tabs=[].slice.call(document.querySelectorAll('.tab'));
+  var ids=tabs.map(function(t){return t.dataset.tab});
+  function show(id,focus){
+    if(ids.indexOf(id)<0) id='overview';
+    tabs.forEach(function(t){
+      var on=t.dataset.tab===id;
+      t.setAttribute('aria-selected',on?'true':'false');
+      t.tabIndex=on?0:-1;
+      document.getElementById(t.dataset.tab).hidden=!on;
+      if(on){ if(focus) t.focus(); var bar=t.parentNode; bar.scrollLeft=t.offsetLeft-(bar.clientWidth-t.offsetWidth)/2; }
+    });
+  }
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){show(t.dataset.tab);try{history.replaceState(null,'','#'+t.dataset.tab)}catch(e){}window.scrollTo({top:0});});
+    t.addEventListener('keydown',function(e){
+      var d=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0; if(!d) return;
+      e.preventDefault(); var n=tabs[(i+d+tabs.length)%tabs.length]; show(n.dataset.tab,true);
+    });
+  });
+  document.querySelectorAll('[data-go]').forEach(function(b){b.addEventListener('click',function(){show(b.dataset.go);window.scrollTo({top:0});});});
+  document.querySelectorAll('.subnav a').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();var el=document.querySelector(a.getAttribute('href'));if(el)el.scrollIntoView({behavior:'smooth',block:'start'});});});
+  var h=(location.hash||'').slice(1);
+  show(ids.indexOf(h)>=0?h:'overview');
+})();
+</script>
+</body>
+</html>
