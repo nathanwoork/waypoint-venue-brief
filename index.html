@@ -291,6 +291,35 @@ footer{border-top:1px solid var(--line);padding-block:20px 40px;font-size:.8rem;
 .legend i{display:inline-block;width:12px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
 .share{display:inline-block;height:8px;border-radius:999px;background:var(--kurome);vertical-align:middle;margin-right:8px}
 .hidden-by-filter{display:none!important}
+/* resources view + design language */
+.picbar .tab.rtab{padding:7px 14px}
+.reslist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.reslist li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 14px;align-items:baseline;padding:10px 12px;background:var(--bg);border:1px solid var(--line);border-radius:6px;font-size:.9rem}
+.reslist .rt{font-family:var(--f-mono);font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
+.reslist .rd{grid-column:1/-1;font-size:.84rem;color:var(--muted)}
+.rcard{border-top:3px solid var(--lav-deep)}
+.rcard.s{border-top-color:var(--summer)} .rcard.k{border-top-color:var(--kurome)}
+.script{font-size:.9rem;background:var(--bg);border:1px solid var(--line);border-left:3px solid var(--summer);border-radius:4px;padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+.script b{font-family:var(--f-mono);font-weight:500;font-size:.7rem;letter-spacing:.07em;text-transform:uppercase;color:var(--summer)}
+.ok{color:var(--good)} .stop{color:var(--bad)}
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+.swatch{border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--bg);display:flex;flex-direction:column;min-width:0}
+.swatch i{display:block;height:54px}
+.swatch div{padding:8px 10px;display:flex;flex-direction:column;gap:1px}
+.swatch b{font-size:.84rem;font-weight:600}
+.swatch span{font-family:var(--f-mono);font-size:.7rem;color:var(--muted)}
+.dl-zones{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.dl-zone{border:1px solid var(--line);border-radius:8px;padding:14px;background:var(--surface);display:flex;flex-direction:column;gap:6px;min-width:0}
+.dl-zone h4{margin:0;font-size:1rem;font-weight:600}
+.dl-zone.c{border-top:3px solid var(--casual)} .dl-zone.c h4{color:var(--casual)}
+.dl-zone.r{border-top:3px solid var(--rp)} .dl-zone.r h4{color:var(--rp)}
+.dl-zone.d{border-top:3px solid var(--raid)} .dl-zone.d h4{color:var(--raid)}
+.dl-zone p{font-size:.86rem;color:var(--muted)}
+.typeset{display:flex;flex-direction:column;gap:4px;padding:14px;background:var(--bg);border:1px solid var(--line);border-radius:8px}
+.typeset .big{font-family:var(--f-display);font-size:1.7rem;line-height:1.1;color:var(--lav)}
+.typeset .mid{font-family:var(--f-body);font-size:.95rem}
+.typeset .mono{font-size:.78rem;color:var(--muted)}
+@media (max-width:860px){.dl-zones{grid-template-columns:minmax(0,1fr)}}
 @media (max-width:760px){.people{grid-template-columns:minmax(0,1fr)}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.pill.jumpf{margin-left:0}}
 @media (max-width:520px){.chk{grid-template-columns:auto minmax(0,1fr)}.tags{grid-column:2;flex-direction:row;align-items:center;flex-wrap:wrap}}
 </style>
@@ -309,8 +338,8 @@ footer{border-top:1px solid var(--line);padding-block:20px 40px;font-size:.8rem;
     </div>
     <div class="viewbar">
       <label for="view">View</label>
-      <span class="select"><select id="view"><option value="chapters">Chapters</option><option value="pic">PIC checklist</option></select></span>
-      <span class="hint">Switch between the research chapters and the Summer / Kurome roadmap.</span>
+      <span class="select"><select id="view"><option value="chapters">Chapters</option><option value="pic">PIC checklist</option><option value="resources">Resources</option></select></span>
+      <span class="hint">Switch between the research chapters, the Summer / Kurome roadmap and the resources for networking and funding.</span>
     </div>
   </div>
 </div>
@@ -793,7 +822,8 @@ footer{border-top:1px solid var(--line);padding-block:20px 40px;font-size:.8rem;
       <button class="pill s" data-who="s" aria-pressed="false"><span class="dot"></span>Summer</button>
       <button class="pill k" data-who="k" aria-pressed="false"><span class="dot"></span>Kurome</button>
       <button class="pill b" data-who="b" aria-pressed="false"><span class="dot"></span>Shared</button>
-      <button class="pill jumpf" data-jump="forecast"><span class="dot" style="background:var(--gil)"></span>Gil forecast</button>
+      <button class="pill jumpf" data-jump="design-language"><span class="dot" style="background:var(--summer)"></span>Design language</button>
+      <button class="pill" data-jump="forecast"><span class="dot" style="background:var(--gil)"></span>Gil forecast</button>
     </div>
   </div>
 </nav>
@@ -802,7 +832,7 @@ footer{border-top:1px solid var(--line);padding-block:20px 40px;font-size:.8rem;
   <div class="sec-head">
     <span class="label">PIC checklist · production roadmap</span>
     <h2>Who does what, week by week</h2>
-    <p class="prose muted">Two people run Waypoint. Each task has one person in charge (PIC). Tick items off as you go; ticks are saved in this browser only, so each of you keeps your own copy.</p>
+    <p class="prose muted">Two people run Waypoint. Each task has one person in charge (PIC). The project is not confirmed yet, so phases show an expected time to complete rather than calendar dates. Tick items off as you go; ticks are saved in this browser only, so each of you keeps your own copy.</p>
   </div>
 
   <div class="people">
@@ -823,7 +853,7 @@ footer{border-top:1px solid var(--line);padding-block:20px 40px;font-size:.8rem;
   </div>
 
   <section class="phase" data-phase>
-    <div class="phase-head"><span class="when">Week 1 · 6–12 Oct</span><h3>Foundations</h3></div>
+    <div class="phase-head"><span class="when">Expected time to complete · 1 week</span><h3>Foundations</h3></div>
     <ul class="checks">
       <li class="chk" data-who="b"><input type="checkbox" id="c-concept"><label for="c-concept"><span class="t">Agree the concept, name and fixed night</span><span class="d">One paragraph, house rules, weekly night between 20:00 and 23:00 GMT+8.</span></label><div class="tags"><span class="who b">Shared</span></div></li>
       <li class="chk" data-who="s"><input type="checkbox" id="c-discord"><label for="c-discord"><span class="t">Build the Discord and cross-world linkshell</span><span class="d">Channel layout, Onboarding roles, AutoMod, Raid-Helper, rules channel.</span></label><div class="tags"><span class="who s">Summer</span></div></li>
@@ -837,7 +867,7 @@ footer{border-top:1px solid var(--line);padding-block:20px 40px;font-size:.8rem;
   </section>
 
   <section class="phase" data-phase>
-    <div class="phase-head"><span class="when">Weeks 2–4 · 13 Oct – 2 Nov</span><h3>Build</h3></div>
+    <div class="phase-head"><span class="when">Expected time to complete · 3 weeks</span><h3>Build</h3></div>
     <ul class="checks">
       <li class="chk" data-who="s"><input type="checkbox" id="c-brief"><label for="c-brief"><span class="t">Brief and manage the designer</span><span class="d">Three-zone layout: Lounge, Stage room, the Board. Weekly progress screenshots.</span></label><div class="tags"><span class="who s">Summer</span></div></li>
       <li class="chk" data-who="k"><input type="checkbox" id="c-furn"><label for="c-furn"><span class="t">Fund the furniture budget in three transfers</span><span class="d">12M, 12M, 11M to the designer's Tonberry character. Track unused budget returned.</span></label><div class="tags"><span class="who k">Kurome</span><span class="gilcost">35M</span></div></li>
@@ -853,7 +883,7 @@ footer{border-top:1px solid var(--line);padding-block:20px 40px;font-size:.8rem;
   </section>
 
   <section class="phase" data-phase>
-    <div class="phase-head"><span class="when">Weeks 5–6 · 3–16 Nov</span><h3>Launch</h3></div>
+    <div class="phase-head"><span class="when">Expected time to complete · 2 weeks</span><h3>Launch</h3></div>
     <ul class="checks">
       <li class="chk" data-who="s"><input type="checkbox" id="c-soft"><label for="c-soft"><span class="t">Host the soft opening for Discord members</span><span class="d">Collect feedback and fix the rota before going public.</span></label><div class="tags"><span class="who s">Summer</span></div></li>
       <li class="chk" data-who="k"><input type="checkbox" id="c-softfund"><label for="c-softfund"><span class="t">Fund the soft opening</span><span class="d">Small prizes and staff pay.</span></label><div class="tags"><span class="who k">Kurome</span><span class="gilcost">1.5M</span></div></li>
@@ -864,7 +894,7 @@ footer{border-top:1px solid var(--line);padding-block:20px 40px;font-size:.8rem;
   </section>
 
   <section class="phase" data-phase>
-    <div class="phase-head"><span class="when">Week 7 onward · 17 Nov – Evercold</span><h3>Run and grow</h3></div>
+    <div class="phase-head"><span class="when">Expected time to complete · ongoing, from the first public night</span><h3>Run and grow</h3></div>
     <ul class="checks">
       <li class="chk" data-who="s"><input type="checkbox" id="c-weekly"><label for="c-weekly"><span class="t">Manage the weekly night</span><span class="d">Rota, opening checklist, incident log, screenshots for socials.</span></label><div class="tags"><span class="who s">Summer</span></div></li>
       <li class="chk" data-who="k"><input type="checkbox" id="c-payroll"><label for="c-payroll"><span class="t">Run weekly payroll and running costs</span><span class="d">Staff 3.5M, performers 1M, bounties 1M, marketing 0.5M, refits 0.5M.</span></label><div class="tags"><span class="who k">Kurome</span><span class="gilcost">6.5M / wk</span></div></li>
@@ -876,8 +906,82 @@ footer{border-top:1px solid var(--line);padding-block:20px 40px;font-size:.8rem;
     </ul>
   </section>
 
+  <section class="phase" id="design-language" data-phase style="scroll-margin-top:72px">
+    <div class="phase-head"><span class="when">Summer · expected time to complete · 1–2 weeks, before the designer brief</span><h3>Design language</h3></div>
+    <p class="prose muted">One shared look for the in-game house, the Discord, the booking site and every screenshot. Everything below is a proposal for Summer to edit and confirm; the colours and fonts are the ones already used on this page, so the site and the venue can match from day one. Finished pieces feed "Design the brand kit" and "Brief and manage the designer" above.</p>
+
+    <div class="grid2">
+      <div class="card">
+        <h3>Concept: the crossroads</h3>
+        <p class="muted" style="font-size:.92rem">A waypoint is the marker you plant so a group can find each other. The venue is the same idea: a lit stop on the road where three kinds of traveller meet. Every design decision should say "you can find your people here".</p>
+        <ul class="clean">
+          <li><b>Readable first.</b> Most people will meet Waypoint through a screenshot, so the exterior and each room must read clearly in one image.</li>
+          <li><b>One doorway, three directions.</b> The entrance lobby points to Lounge, Stage room and the Board with obvious signage.</li>
+          <li><b>Vanilla only.</b> Furniture and glamour obtainable in-game, no mod-gated looks, so every guest sees the same room.</li>
+          <li><b>SFW and warm.</b> Dim, inviting light; nothing that needs an age gate.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Voice and naming</h3>
+        <ul class="clean">
+          <li><b>Tone:</b> plain, friendly English. Short sentences, no gatekeeping slang.</li>
+          <li><b>Greeting:</b> "Welcome in. First time here? The Lounge is on your left."</li>
+          <li><b>Party Finder tag:</b> [WPT] plus the night's activity, e.g. "[WPT] Throwback raid night, new players welcome".</li>
+          <li><b>Zone names:</b> the Lounge, the Stage room, the Board. Keep them as written everywhere.</li>
+          <li><b>Never:</b> real-money talk, selling runs in listings, or unconfirmed claims about opening dates.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div><h3>Palette</h3><p class="note">Taken from this page. Match each to the nearest in-game dye once the designer confirms what the chosen furniture can use, then record the dye names here.</p></div>
+      <div class="swatches">
+        <div class="swatch"><i style="background:var(--bg)"></i><div><b>Night</b><span>#16111E · base, walls</span></div></div>
+        <div class="swatch"><i style="background:var(--lav)"></i><div><b>Lavender</b><span>#C7AEF2 · brand, signs</span></div></div>
+        <div class="swatch"><i style="background:var(--lav-deep)"></i><div><b>Deep lavender</b><span>#9273D1 · trim, rugs</span></div></div>
+        <div class="swatch"><i style="background:var(--casual)"></i><div><b>Lounge mint</b><span>#82D6B7 · casual zone</span></div></div>
+        <div class="swatch"><i style="background:var(--rp)"></i><div><b>Stage rose</b><span>#E7A6DC · roleplay zone</span></div></div>
+        <div class="swatch"><i style="background:var(--raid)"></i><div><b>Board coral</b><span>#F49494 · raid zone</span></div></div>
+        <div class="swatch"><i style="background:var(--gil)"></i><div><b>Gil gold</b><span>#E6C47E · rewards, lanterns</span></div></div>
+      </div>
+    </div>
+
+    <div class="dl-zones">
+      <div class="dl-zone c"><h4>The Lounge</h4><p>Warm lantern light, mixed seating in small clusters so strangers can drift into conversation. Mint accents. Newcomer desk and FC recruitment boards by the door.</p></div>
+      <div class="dl-zone r"><h4>The Stage room</h4><p>Raised stage, curtains, a clear sightline from every seat. Rose accents. Space for a bard, a DJ or a small RP scene without blocking the walkway.</p></div>
+      <div class="dl-zone d"><h4>The Board</h4><p>Noticeboard wall for throwback signups and a clears wall for trophies. Coral accents. Reads like a guild hall: functional, a little competitive, still friendly.</p></div>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h3>Type and signage</h3>
+        <div class="typeset"><span class="big">Waypoint</span><span class="mid">IBM Plex Sans for body text, schedules and rules.</span><span class="mono">IBM PLEX MONO · [WPT] · WARD / PLOT ADDRESSES</span></div>
+        <p class="note">Marcellus for the name and headings, Plex Sans for reading, Plex Mono for tags and addresses. In-game, use the closest readable sign furniture and keep room names consistent with the web.</p>
+      </div>
+      <div class="card">
+        <h3>Screenshot style</h3>
+        <ul class="clean">
+          <li>Fixed time and weather at dusk or evening for hero shots, so every post looks alike.</li>
+          <li>GPose with the UI hidden. Same framing for each zone: wide room, then a close-up of one detail.</li>
+          <li>16:9 for banners, 1:1 for avatars, a small [WPT] mark in one corner only.</li>
+          <li>Guests only appear with permission; crop or blur names in public posts.</li>
+        </ul>
+      </div>
+    </div>
+
+    <ul class="checks">
+      <li class="chk" data-who="s"><input type="checkbox" id="c-dl-mood"><label for="c-dl-mood"><span class="t">Build the moodboard</span><span class="d">Eight to twelve references: venue exteriors, interiors, lighting, signage. Mark what to copy and what to avoid.</span></label><div class="tags"><span class="who s">Summer</span></div></li>
+      <li class="chk" data-who="s"><input type="checkbox" id="c-dl-confirm"><label for="c-dl-confirm"><span class="t">Confirm the concept, voice and zone names</span><span class="d">Edit the proposals above, then agree them with Kurome so the idea bank matches.</span></label><div class="tags"><span class="who s">Summer</span></div></li>
+      <li class="chk" data-who="s"><input type="checkbox" id="c-dl-palette"><label for="c-dl-palette"><span class="t">Lock the palette and list the in-game dyes</span><span class="d">Match each colour to an available dye and note which furniture can be dyed.</span></label><div class="tags"><span class="who s">Summer</span></div></li>
+      <li class="chk" data-who="s"><input type="checkbox" id="c-dl-logo"><label for="c-dl-logo"><span class="t">Draw the logo and zone icons</span><span class="d">Wordmark plus one simple icon each for the Lounge, Stage room and Board, readable at avatar size.</span></label><div class="tags"><span class="who s">Summer</span></div></li>
+      <li class="chk" data-who="s"><input type="checkbox" id="c-dl-facade"><label for="c-dl-facade"><span class="t">Write the exterior and entrance brief</span><span class="d">Facade, signage, lobby layout and sightlines, ready to hand to the designer.</span></label><div class="tags"><span class="who s">Summer</span></div></li>
+      <li class="chk" data-who="s"><input type="checkbox" id="c-dl-templates"><label for="c-dl-templates"><span class="t">Make the banner and post templates</span><span class="d">Discord banner and icon, Lodestone event image, Party Finder text, social post frame.</span></label><div class="tags"><span class="who s">Summer</span></div></li>
+      <li class="chk" data-who="s"><input type="checkbox" id="c-dl-guide"><label for="c-dl-guide"><span class="t">Publish a one-page style guide</span><span class="d">Palette, fonts, voice, screenshot rules. Share with staff and the designer.</span></label><div class="tags"><span class="who s">Summer</span></div></li>
+    </ul>
+  </section>
+
   <section class="phase" id="forecast" style="scroll-margin-top:72px">
-    <div class="phase-head"><span class="when">Kurome · 16 weeks · 6 Oct 2026 – 25 Jan 2027</span><h3>Gil forecast</h3></div>
+    <div class="phase-head"><span class="when">Kurome · expected duration · 16 weeks</span><h3>Gil forecast</h3></div>
     <p class="prose muted">Starting balance 80M gil, income 800k gil a day (5.6M a week). Plot already owned, so it costs nothing here. Spending follows the mid-range of the Budget chapter.</p>
     <div class="kpis num">
       <div class="kpi"><b>80.0M</b><span>Starting budget</span></div>
@@ -931,6 +1035,181 @@ footer{border-top:1px solid var(--line);padding-block:20px 40px;font-size:.8rem;
 </main>
 </div>
 
+<div id="view-resources" hidden>
+<main class="wrap panel-page">
+  <div class="sec-head">
+    <span class="label">Resources · networking and funding</span>
+    <h2>Where to meet people, how to win them over, and how to keep the gil healthy</h2>
+    <p class="prose muted">Summer's networking map and pitch guide, and Kurome's list of ways to offset spending. Venue lists change often, so treat names as leads and check each directory for current hours before visiting. Gil figures from outside guides are estimates that move with every patch.</p>
+    <nav class="subnav" aria-label="Resources sections">
+      <a href="#res-network">Summer · where to network</a>
+      <a href="#res-deals">Summer · closing the deal</a>
+      <a href="#res-funding">Kurome · offsetting spend</a>
+      <a href="#res-links">Links</a>
+    </nav>
+  </div>
+
+  <section class="sub" id="res-network">
+    <div class="phase-head"><span class="when">Summer</span><h3>Where to socialise and network</h3></div>
+    <p class="prose muted">Start as a guest, not a recruiter. Visit each place two or three times, be friendly, and learn who runs the room before you ever mention Waypoint.</p>
+    <div class="grid2">
+      <div class="card rcard s">
+        <h3>Directories to find venues</h3>
+        <ul class="reslist">
+          <li><a href="https://ff14venue.wixsite.com/elemental" target="_blank" rel="noopener">XIVenues Elemental</a><span class="rt">Tonberry + Elemental</span><span class="rd">A database of roleplay venues across Elemental worlds, listing Tonberry venues with location and schedule. Best starting point for RP crowds.</span></li>
+          <li><a href="https://xivrolladeck.com/venues" target="_blank" rel="noopener">XIV Rolladeck venue directory</a><span class="rt">All DCs</span><span class="rd">Venue and DJ directory. Useful for finding performers as well as places to visit.</span></li>
+          <li><a href="https://ffxivvenues.com" target="_blank" rel="noopener">FFXIV Venues</a><span class="rt">All DCs</span><span class="rd">General venue listing. Its page did not load fully when I checked, so use its Elemental / Tonberry filter and confirm the entries.</span></li>
+          <li><a href="https://na.finalfantasyxiv.com/lodestone/community_finder/?dc=Elemental&amp;worldname=Tonberry" target="_blank" rel="noopener">Lodestone Community Finder · Tonberry</a><span class="rt">Official</span><span class="rd">Free companies and communities on Tonberry. Good for the "partner with three to five English FCs" task.</span></li>
+        </ul>
+      </div>
+      <div class="card rcard s">
+        <h3>Tonberry venues to visit first</h3>
+        <p class="note">Listed on the XIVenues Elemental directory as Tonberry venues. Addresses and nights differ between sources, so confirm on the directory.</p>
+        <ul class="reslist">
+          <li><b>Ando's Book Bar</b><span class="rt">Library · bar</span></li>
+          <li><b>Athenaeum</b><span class="rt">Café · lounge</span></li>
+          <li><b>Reiman's Lounge</b><span class="rt">Jazz lounge</span></li>
+          <li><b>Cat Pavilion</b><span class="rt">Bar · lounge</span></li>
+          <li><b>Cafe Constellation</b><span class="rt">Café · study</span></li>
+          <li><b>Angel's Cafe</b><span class="rt">Café · live music</span></li>
+          <li><b>Singing-Log</b><span class="rt">Karaoke bar</span></li>
+          <li><b>Blackout</b><span class="rt">Nightclub · chill</span></li>
+        </ul>
+        <p class="note">Waypoint's rules require SFW listings, so skip venues marked for adult roleplay. Choose venues whose nights differ from yours so you are a neighbour, not a competitor.</p>
+      </div>
+    </div>
+    <div class="card">
+      <h3>What to look for on each visit</h3>
+      <ul class="clean">
+        <li><b>Who staffs the room:</b> hosts, bartenders, bards or DJs. Note names, roles and who seems stretched thin.</li>
+        <li><b>The night and the gap:</b> which nights are already busy, and which are empty. Waypoint's 20:00–23:00 GMT+8 slot should not clash with a friendly venue.</li>
+        <li><b>What guests enjoy:</b> contests, raffles, music, games. Borrow ideas for Kurome's idea bank.</li>
+        <li><b>Whether they are English-first:</b> those are your likely partners and cross-promotion targets.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sub" id="res-deals">
+    <div class="phase-head"><span class="when">Summer</span><h3>Closing the deal and convincing people to join</h3></div>
+    <p class="prose muted">These are suggested approaches, not guarantees. The aim is that people say yes because the offer is clear, fair and low-risk, not because they were pressured.</p>
+    <ol class="steps">
+      <li><div><span class="when">Step 1 · be a regular</span><p>Show up, tip, join in. People hire people they already like. Keep a short note of each person you meet and what they enjoy.</p></div></li>
+      <li><div><span class="when">Step 2 · lead with their problem</span><p>Performers want steady paid work and credit. Hosts want a rota that respects their time. Raiders want a place to show clears. Say how Waypoint solves that, not how great Waypoint is.</p></div></li>
+      <li><div><span class="when">Step 3 · make the offer concrete</span><p>Role, night, hours, pay, and who to ask. Waypoint's planned wage is 500k per staff shift, paid in gil on the night and logged by Kurome. Clear numbers build trust faster than enthusiasm.</p></div></li>
+      <li><div><span class="when">Step 4 · lower the risk</span><p>Offer a paid trial shift or a single guest set first. Make it additional to their current venue, not a replacement, so they never have to choose on day one.</p></div></li>
+      <li><div><span class="when">Step 5 · be a good neighbour</span><p>Never recruit inside another venue during its opening hours, ask in a private message, and take no for an answer. Offer cross-promotion in return: a shout-out on the Board, a guest slot for their staff.</p></div></li>
+      <li><div><span class="when">Step 6 · follow up and keep them</span><p>After the trial, confirm the role and schedule in writing, ask for feedback, and review at the weekly sync. People stay where they feel heard and paid on time.</p></div></li>
+    </ol>
+
+    <div class="grid2">
+      <div class="script"><b>Opening message · private message after a few visits</b>
+        <p>Hi [name], I'm Summer. I've loved your nights at [venue], especially [specific thing]. I'm helping build a new English-friendly venue on Tonberry called Waypoint that brings casual players, roleplayers and raiders together. Nothing to decide now. Would you be open to a quick chat about a paid guest slot? It would sit alongside what you already do.</p>
+      </div>
+      <div class="script"><b>The offer · once they reply</b>
+        <p>It's a weekly night, 20:00–23:00 GMT+8. [Role] is paid [rate] in gil per night, on the night, with a paid trial first. You'd keep your own schedule elsewhere and get a shout-out to our guests. Want to try one night and see if it fits?</p>
+      </div>
+    </div>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Who to approach</th><th>Where to find them</th><th>What they care about</th><th>The ask</th></tr></thead>
+        <tbody>
+          <tr><td>Performers (bards, DJs, dancers)</td><td>Venue visits, XIV Rolladeck, performer and bard Discords</td><td>Fair hourly pay, an audience, credit</td><td>One paid guest set, then a weekly slot</td></tr>
+          <tr><td>Hosts and greeters</td><td>Lounges and cafés on the directories</td><td>Friendly crowd, a rota that fits their life</td><td>One trial shift at 500k</td></tr>
+          <tr><td>RP lead</td><td>RP venues on XIVenues Elemental</td><td>Story space, creative freedom</td><td>Lead one monthly RP arc in the Stage room</td></tr>
+          <tr><td>Raid hosts and throwback leaders</td><td>Party Finder, Lodestone Community Finder, English FCs</td><td>Clears, a regular roster, bounties</td><td>Run a throwback night on the Board</td></tr>
+          <tr><td>Free company leaders</td><td>Lodestone Community Finder · Tonberry</td><td>Members, visibility</td><td>A recruitment board in the Lounge</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h3>Check the performer budget</h3>
+      <p class="muted" style="font-size:.92rem">The forecast uses a placeholder of 1M a week for performers. For a rough benchmark, one Crystal and Primal performance troupe advertises 450k an hour for a lead bard, 250k an hour for each extra bard and 300k per dancer. That is a different data center and not a Tonberry quote, but one lead-bard hour would already be about 45% of the weekly placeholder. Get real quotes before committing, and consider shorter sets or performers every other week as the forecast already suggests.</p>
+    </div>
+  </section>
+
+  <section class="sub" id="res-funding">
+    <div class="phase-head"><span class="when">Kurome</span><h3>Ways to offset spending</h3></div>
+    <p class="prose muted">After opening, running costs are 6.5M a week against 5.6M of income, a gap of about 0.9M a week. That is roughly 130k gil a day, or about 16% on top of the current 800k a day. Any mix of the options below could close it. All of them use gil only, in line with the venue rules.</p>
+    <div class="grid2">
+      <article class="card rcard k">
+        <span class="ev data">Option 1</span>
+        <h3>Craft for the market board</h3>
+        <ul class="clean">
+          <li>Look up what sells quickly on Tonberry with Universalis, then craft what has a healthy margin over material cost.</li>
+          <li>Use Teamcraft to list materials and plan the crafting chain.</li>
+          <li>Outside guides rate crafting and market-board selling as the strongest option for experienced crafters. Expect a startup cost for good gear.</li>
+          <li><b>Venue bonus:</b> craft housing furniture and consumables yourself where possible, instead of buying them. Even a small share of the 35M furniture budget saved is gil kept.</li>
+        </ul>
+      </article>
+      <article class="card rcard k">
+        <span class="ev data">Option 2</span>
+        <h3>Gather and sell materials</h3>
+        <ul class="clean">
+          <li>Farm high-value nodes and sell the materials directly. Low skill requirement, steady output.</li>
+          <li>Time it to patches. New materials sell at a premium for the first days, so Evercold in January 2027 is the best window and lines up with the planned newcomer night.</li>
+          <li>Crafters also need your materials, which supports Option 1.</li>
+        </ul>
+      </article>
+      <article class="card rcard k">
+        <span class="ev data">Option 3</span>
+        <h3>Treasure maps and other solo grind</h3>
+        <ul class="clean">
+          <li>Treasure maps are a low-effort, fairly steady earner that can run while chatting in Discord.</li>
+          <li>Third-party guides estimate roughly 1–2M gil an hour for maps against 3–5M for expert crafting. These are rough figures and depend on the week and world.</li>
+          <li>Good as a filler when crafting stock is waiting to sell.</li>
+        </ul>
+      </article>
+      <article class="card rcard k">
+        <span class="ev data">Option 4</span>
+        <h3>Raid assistance for gil</h3>
+        <ul class="clean">
+          <li>Offer clear help or guidance to players stuck on content, with gil as a thank-you or agreed fee, arranged through your Discord or free company.</li>
+          <li><b class="stop">Do not advertise it in Party Finder.</b> Square Enix prohibits advertising runs for currency there, and Waypoint's own rule says the same.</li>
+          <li>Gil only. Never take or ask for real money.</li>
+          <li>Keep it clearly separate from the venue's throwback nights so guests do not feel they are being charged.</li>
+        </ul>
+      </article>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <h3>Spend less without cutting quality</h3>
+        <ul class="clean">
+          <li>Six staff instead of seven saves 0.5M a week.</li>
+          <li>Performers every other week saves 0.5M a week.</li>
+          <li>Pay some bounties and prizes in crafted glamour, furniture or passport stamps instead of gil.</li>
+          <li>Reuse seasonal decor and rotate it instead of buying new each time.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Bring a little gil in</h3>
+        <ul class="clean">
+          <li>A voluntary tip jar for guests, clearly optional.</li>
+          <li>Sponsored nights from partner free companies that want a themed evening.</li>
+          <li>Paid private bookings of the house for other groups, if Summer agrees the schedule allows it.</li>
+          <li>Review monthly: if the balance trends toward the 10M floor, pull one lever from each list.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sub sources" id="res-links">
+    <div class="phase-head"><span class="when">Reference</span><h3>Links</h3></div>
+    <ol>
+      <li><a href="https://ff14venue.wixsite.com/elemental" target="_blank" rel="noopener">XIVenues Elemental</a> · roleplay venue database</li>
+      <li><a href="https://xivrolladeck.com/venues" target="_blank" rel="noopener">XIV Rolladeck venue directory</a></li>
+      <li><a href="https://ffxivvenues.com" target="_blank" rel="noopener">FFXIV Venues</a></li>
+      <li><a href="https://na.finalfantasyxiv.com/lodestone/community_finder/?dc=Elemental&amp;worldname=Tonberry" target="_blank" rel="noopener">Lodestone Community Finder · Tonberry</a></li>
+      <li><a href="https://universalis.app" target="_blank" rel="noopener">Universalis</a> · market board prices by world</li>
+      <li><a href="https://ffxivteamcraft.com" target="_blank" rel="noopener">Teamcraft</a> · crafting and gathering planner</li>
+      <li><a href="https://www.icy-veins.com/ffxiv/gil-making-guide" target="_blank" rel="noopener">Icy Veins · Dawntrail gil farming guide</a> · crafting and gathering pages linked from it</li>
+      <li><a href="https://massivelyop.com/?p=359784" target="_blank" rel="noopener">Massively OP · Square Enix prohibits selling runs via Party Finder</a></li>
+      <li><a href="https://thewanderingbole.carrd.co/" target="_blank" rel="noopener">The Wandering Bole</a> · published performer rates (Crystal and Primal), used only as a benchmark</li>
+    </ol>
+  </section>
+</main>
+</div>
+
 <footer><div class="wrap">Waypoint Venue Brief · compiled 6 October 2026 · FINAL FANTASY XIV is a registered trademark of Square Enix. This is an unofficial fan planning page.</div></footer>
 
 <script>
@@ -965,11 +1244,12 @@ footer{border-top:1px solid var(--line);padding-block:20px 40px;font-size:.8rem;
   var KEY='waypoint-pic-v1', state={};
   try{state=JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(e){state={};}
   function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
-  var viewSel=document.getElementById('view'), vc=document.getElementById('view-chapters'), vp=document.getElementById('view-pic');
-  function setView(v){vc.hidden=v!=='chapters'; vp.hidden=v!=='pic'; viewSel.value=v; try{localStorage.setItem('waypoint-view',v);}catch(e){}}
-  viewSel.addEventListener('change',function(){setView(viewSel.value);window.scrollTo({top:0});});
+  var viewSel=document.getElementById('view'), vc=document.getElementById('view-chapters'), vp=document.getElementById('view-pic'), vr=document.getElementById('view-resources');
+  function setView(v){vc.hidden=v!=='chapters'; vp.hidden=v!=='pic'; vr.hidden=v!=='resources'; viewSel.value=v; try{localStorage.setItem('waypoint-view',v);}catch(e){}}
+  viewSel.addEventListener('change',function(){setView(viewSel.value);try{history.replaceState(null,'',viewSel.value==='chapters'?location.pathname:'#'+viewSel.value)}catch(e){}window.scrollTo({top:0});});
   var h=(location.hash||'').slice(1), saved=null; try{saved=localStorage.getItem('waypoint-view');}catch(e){}
-  setView(h==='pic'||h==='forecast'?'pic':(h&&h!=='pic'?'chapters':(saved||'chapters')));
+  var picHashes=['pic','forecast','design-language'], resHashes=['resources','res-network','res-deals','res-funding','res-links'];
+  setView(picHashes.indexOf(h)>=0?'pic':resHashes.indexOf(h)>=0?'resources':(h?'chapters':(saved||'chapters')));
 
   var items=[].slice.call(document.querySelectorAll('.chk'));
   function counts(){
@@ -997,8 +1277,8 @@ footer{border-top:1px solid var(--line);padding-block:20px 40px;font-size:.8rem;
       ph.classList.toggle('hidden-by-filter',!vis);
     });
   });});
-  document.querySelector('[data-jump]').addEventListener('click',function(){document.getElementById('forecast').scrollIntoView({behavior:'smooth',block:'start'})});
-  if(h==='forecast'){setTimeout(function(){document.getElementById('forecast').scrollIntoView({block:'start'})},50);}
+  document.querySelectorAll('[data-jump]').forEach(function(b){b.addEventListener('click',function(){document.getElementById(b.dataset.jump).scrollIntoView({behavior:'smooth',block:'start'})});});
+  if(h==='forecast'||h==='design-language'||h.indexOf('res-')===0){setTimeout(function(){var t=document.getElementById(h);if(t)t.scrollIntoView({block:'start'})},50);}
 
   // forecast chart
   var spend=[10,12.5,13.5,21.5,1.5,9.5,6.5,6.5,6.5,6.5,6.5,6.5,6.5,6.5,8.5,6.5];
