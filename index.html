@@ -227,6 +227,22 @@ footer{border-top:1px solid var(--line);padding-block:20px 40px;font-size:.8rem;
   .panel-page{animation:fade .25s ease-out}
   @keyframes fade{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:none}}
 }
+/* reassessment (overview) */
+.reassess{display:flex;flex-direction:column;gap:20px;padding:24px;border:1px solid var(--lav-deep);border-radius:12px;background:linear-gradient(180deg,var(--lav-soft),var(--surface) 38%)}
+.reassess h3.sh{font-family:var(--f-display);font-weight:400;font-size:1.3rem}
+details.fold{border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+details.fold>summary{cursor:pointer;padding:12px 16px;font-weight:600;font-size:.95rem;list-style:none;display:flex;justify-content:space-between;gap:12px;align-items:center}
+details.fold>summary::-webkit-details-marker{display:none}
+details.fold>summary::after{content:"+";font-family:var(--f-mono);color:var(--lav)}
+details.fold[open]>summary::after{content:"\2212"}
+details.fold>.tbl-wrap,details.fold>.fold-body{margin:0 12px 12px}
+.wt{font-family:var(--f-mono);font-size:.69rem;text-transform:uppercase;letter-spacing:.05em;padding:2px 7px;border-radius:3px;border:1px solid;white-space:nowrap}
+.wt.hi{color:var(--good);border-color:var(--good)} .wt.md{color:var(--warn);border-color:var(--warn)} .wt.lo{color:var(--muted);border-color:var(--line)}
+.prop{display:grid;grid-template-columns:34px minmax(0,1fr);gap:12px;padding:14px 16px;background:var(--surface);border:1px solid var(--line);border-radius:8px}
+.prop .k{font-family:var(--f-mono);font-size:.82rem;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--lav-soft);color:var(--lav)}
+.prop h4{margin:0 0 3px;font-size:.98rem;font-weight:600}
+.prop p{font-size:.9rem;color:var(--muted)}
+.prop .st{font-family:var(--f-mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;color:var(--lav)}
 /* view switch + PIC checklist */
 :root{--summer:#F2B6D6; --summer-soft:#40263A; --kurome:#E6C47E; --kurome-soft:#3A3020}
 .viewbar{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:4px}
@@ -365,6 +381,112 @@ footer{border-top:1px solid var(--line);padding-block:20px 40px;font-size:.8rem;
 
 <!-- OVERVIEW -->
 <section class="panel-page" id="overview" role="tabpanel" aria-labelledby="t-overview">
+  <section class="reassess" id="reassess" aria-labelledby="reassess-h">
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span class="label">Critical reassessment · 7 Oct 2026</span>
+      <h2 id="reassess-h">Would a player pick Waypoint over the venue they already know?</h2>
+      <p class="prose muted">This is a stress test of the plan, the numbers and the pitch, read through a player's eyes. Nothing below has been applied to the forecast or the checklist yet. Each proposal is for the team to accept, change or drop.</p>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h3>The honest verdict</h3>
+        <ul class="clean">
+          <li><b>The concept is not yet distinctive.</b> A weekly night in a well-decorated three-zone house is what hundreds of listed venues already offer. The raider angle is real but narrow, and you have already moved it to on-hold.</li>
+          <li><b>What can set it apart</b> is a combination I could not find offered elsewhere (the field audit should confirm it): an English-first venue in the Japan region, open in the evening slot when NA and EU venues are offline, built as a landing place for the Switch 2 and Evercold wave.</li>
+          <li><b>The money plan is front-loaded.</b> 147M of the 200M is committed to the plot, designer and furniture before the first guest arrives, and the planned case still uses about 40M of the buffer.</li>
+          <li><b>The biggest risk is attendance, not decoration.</b> Venue guides say most venues lose money, and nothing in the plan tests demand before the large spend.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>What I could and could not check</h3>
+        <ul class="clean">
+          <li><b>Read:</b> Square Enix forum threads, venue-management guides, venue pages, directories, and official-policy news.</li>
+          <li><b>Not reachable:</b> Reddit blocks my search tool, Discord servers are private to me, and in-game Party Finder is not visible from outside the game. So comments from those places are not weighed here.</li>
+          <li><b>To close the gap:</b> Summer can run a short field audit. Visit about eight venues twice, noting the hour, headcount, language, hook and staff count. That is better evidence than any forum thread (proposal H).</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 class="sh">Through a player's eyes</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>A player asks</th><th>What the current plan says</th><th>A stronger answer</th></tr></thead>
+        <tbody>
+          <tr><td>Why not the venue I already know?</td><td>A weekly night with three zones, plus raid boards.</td><td>It is the only English-first night in my evening slot, and I leave with new friends or an FC invite.</td></tr>
+          <tr><td>Is it worth logging in on a normal weeknight?</td><td>One fixed night a week.</td><td>The night has a different format each week, and the house is open to wander through on other days.</td></tr>
+          <tr><td>Will I be welcome if I'm new, or Japanese-speaking?</td><td>Newcomer desk, signs with short Japanese lines.</td><td>A buddy desk that pairs newcomers with a guide, and an English and Japanese exchange night.</td></tr>
+          <tr><td>Will it spam me?</td><td>Party Finder listing, Lodestone event, Reddit post.</td><td>No shout or city spam. Directories, event listings and one Party Finder listing at a time.</td></tr>
+          <tr><td>Is the place worth a screenshot?</td><td>Showcase interior.</td><td>Keep it. Add marked photo spots so guests do the marketing.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <details class="fold" open>
+      <summary>Calculation check: what holds and what does not</summary>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Check</th><th>Finding</th><th>Effect</th></tr></thead>
+          <tbody>
+            <tr><td>Arithmetic</td><td>The weekly spend sums to 184.5M and the running balance ends at 60.3M. Verified again.</td><td><span class="wt hi">Holds</span></td></tr>
+            <tr><td>Front-loading</td><td>Plot, designer and furniture are 147M, 73.5% of the 200M total and 80% of 16-week spend.</td><td><span class="wt md">Risk</span></td></tr>
+            <tr><td>Quote sensitivity</td><td>Using the low end of every range gives 92.3M at week 16. The planned case gives 60.3M. The high end of every range gives −7.7M, which breaches the 10M floor before opening costs finish.</td><td><span class="wt md">Risk</span></td></tr>
+            <tr><td>Staff pay</td><td>The plan pays 500k a shift. One published venue rate is about 300k a night plus tips, and venue guides say staff are mostly paid in tips. At 300k the 16-week balance is 67.5M and the weekly gap falls from 2.2M to 1.0M.</td><td><span class="wt md">Change</span></td></tr>
+            <tr><td>Hidden burn</td><td>Only 6 of the 16 weeks are open. Running costs of 5.0M against 2.8M of income burn about 9.5M a month. At that rate the 60.3M reaches the 10M floor roughly 23 weeks after week 16.</td><td><span class="wt md">Risk</span></td></tr>
+            <tr><td>Venue revenue</td><td>The plan assumes none. That matches the guides, which say most venues lose money once raffles, DJs and wages are paid.</td><td><span class="wt hi">Realistic</span></td></tr>
+            <tr><td>Lottery timing</td><td>The plan assumes a first-cycle win and a 27.5M deposit locked for nine days. A won house must also be used: houses are demolished after 45 days of inactivity.</td><td><span class="wt md">Risk</span></td></tr>
+            <tr><td>Raiders</td><td>Already removed from the budget. A board costs almost nothing, so it can stay as a free feature.</td><td><span class="wt hi">Holds</span></td></tr>
+            <tr><td>Designer and furniture</td><td>Both are assumptions with no quotes. They are the largest uncertainty, roughly ±50M.</td><td><span class="wt md">Get quotes</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+
+    <details class="fold">
+      <summary>Community evidence and how much weight it gets</summary>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Source</th><th>What it says</th><th>Weight</th><th>Effect on the plan</th></tr></thead>
+          <tbody>
+            <tr><td><a href="https://forum.square-enix.com/ffxiv/threads/474069" target="_blank" rel="noopener">SE forum: venue ads a nuisance</a> (Oct 2022)</td><td>Moderate agreement that shout, city and Party Finder ads are intrusive. A venue owner agrees they feel desperate. Others say some advertising is needed.</td><td><span class="wt md">Medium</span><br><span class="note">One thread, old, but a venue owner concedes the point</span></td><td>Avoid shout spam. Use Discord, directories and one listing.</td></tr>
+            <tr><td><a href="https://forum.square-enix.com/ffxiv/threads/484659" target="_blank" rel="noopener">SE forum: 24/7 public RP venues</a> (Jun 2023)</td><td>Posters value venues that are always open and well decorated. Some replies doubt the thread.</td><td><span class="wt lo">Low</span><br><span class="note">Small, some doubt</span></td><td>Supports open-house hours and a strong interior.</td></tr>
+            <tr><td><a href="https://imagiquill.com/how-to-work-at-a-ffxiv-venue/" target="_blank" rel="noopener">ImagiQuill: working at a venue</a></td><td>Staff are paid in gil, mostly tips. Some venues use volunteers. Most venues lose money. Start staff at one venue, remember regulars, cross-promote.</td><td><span class="wt md">Medium</span><br><span class="note">One operator-side guide</span></td><td>Tips-first pay, expect a loss, loyalty and cross-promotion.</td></tr>
+            <tr><td><a href="https://xivvenuemanager.com/guide/getting-started" target="_blank" rel="noopener">XIV Venue Manager guide</a></td><td>A spreadsheet and Discord stop working at about five staff and a regular schedule.</td><td><span class="wt lo">Low to medium</span><br><span class="note">Publisher sells a free tool</span></td><td>Plan a scheduling tool before hiring six to eight staff.</td></tr>
+            <tr><td>Earlier research in the Venue tab</td><td>A published staff rate near 300k a night, and a veteran report of wage bidding wars that multiplied costs.</td><td><span class="wt lo">Low to medium</span><br><span class="note">Single venue</span></td><td>500k a shift is above the published rate.</td></tr>
+            <tr><td>Venue pages (<a href="https://equilibrium-xiv.carrd.co/" target="_blank" rel="noopener">barEQUILIBRIUM</a>, <a href="https://aboutshowdown.carrd.co/" target="_blank" rel="noopener">Shaaloani Showdown</a>, <a href="https://discord.com/servers/valkyrie-nightclub-973853415446818856" target="_blank" rel="noopener">Valkyrie</a>, <a href="https://discord.com/servers/habitat-1180989907930468392" target="_blank" rel="noopener">Habitat</a>)</td><td>Venues stand out by format: quizzes and Triple Triad, a festival that unites RP and non-RP players, an LGBT-inclusive club, live DJ nights with trivia and raffles.</td><td><span class="wt lo">Low</span> as proof of demand<br><span class="wt hi">High</span> as proof niches exist<br><span class="note">Self-promotion</span></td><td>Differentiate by format and community, not by decor alone.</td></tr>
+            <tr><td>Housing demolition news</td><td>Houses are demolished after 45 days of inactivity. Japan's timer resumed in July 2024. I could not confirm the current status.</td><td><span class="wt hi">High</span><br><span class="note">Multiple outlets, official policy</span></td><td>Keep the house active from the day it is won.</td></tr>
+            <tr><td>13 Oct 2026 matchmaking news</td><td>Party Finder, Duty Finder and social tools pool across Japan's four data centers.</td><td><span class="wt hi">High</span></td><td>A larger reachable audience, a smaller English share.</td></tr>
+            <tr><td>Reddit, Discord, in-game Party Finder</td><td>Not reachable by my tools.</td><td><span class="wt lo">Not weighed</span></td><td>Field audit by Summer (proposal H).</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+
+    <h3 class="sh">New ideas to make it stand out</h3>
+    <div class="grid3">
+      <div class="card"><h3>Own the time slot and the language</h3><p class="muted" style="font-size:.9rem">Check the directory for English-first venues open 20:00 to 23:00 GMT+8. If there are none, that is the real hook, so say it everywhere.</p></div>
+      <div class="card"><h3>Newcomer buddy desk</h3><p class="muted" style="font-size:.9rem">Greeters pair each Switch 2 or Evercold newcomer with a guide for the night. The promise is an outcome: leave with friends or an FC invite.</p></div>
+      <div class="card"><h3>English and Japanese exchange nights</h3><p class="muted" style="font-size:.9rem">The region is mostly Japanese-speaking and the two groups often stay apart. Bilingual nights turn that split into the venue's identity. This is an inference to test.</p></div>
+      <div class="card"><h3>A new format each week</h3><p class="muted" style="font-size:.9rem">Rotate a quiz, Triple Triad, a glamour contest or a themed festival, with one signature recurring night, so there is a reason to return.</p></div>
+      <div class="card"><h3>Open house and photo spots</h3><p class="muted" style="font-size:.9rem">Let the public wander through outside the weekly night, with marked photo spots and a notice board. Guests post the screenshots for you.</p></div>
+      <div class="card"><h3>The Board for every crowd</h3><p class="muted" style="font-size:.9rem">Make the board a service for FC recruitment, map parties and raid groups alike. Raiders become a bonus, not the pillar.</p></div>
+    </div>
+
+    <h3 class="sh">Proposed changes</h3>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div class="prop"><span class="k">A</span><div><span class="st">Proposed · high priority</span><h4>Run a pop-up trial before buying anything</h4><p>Host four to six nights at a partner venue or an existing FC house. At about four staff on 300k a night that is roughly 4.8M for four nights. It tests attendance, language mix and staff before the 55M plot and 92M build.</p></div></div>
+      <div class="prop"><span class="k">B</span><div><span class="st">Proposed · high priority</span><h4>Release the build budget in tranches</h4><p>Plot first, then the Lounge and exterior, then the Stage room and extras only when attendance targets are met. The team sets the targets, for example a steady number of regulars for three weeks in a row.</p></div></div>
+      <div class="prop"><span class="k">C</span><div><span class="st">Proposed</span><h4>Pay staff 300k plus tips</h4><p>Saves 1.2M a week once open and brings the weekly gap down to 1.0M. Keep 500k for officers or trial shifts if the team prefers.</p></div></div>
+      <div class="prop"><span class="k">D</span><div><span class="st">Proposed</span><h4>Open-house hours and photo spots</h4><p>Low cost, uses the interior spend, and answers the forum point about always-available venues.</p></div></div>
+      <div class="prop"><span class="k">E</span><div><span class="st">Proposed</span><h4>Buddy desk and English and Japanese exchange nights</h4><p>Gives the venue an outcome to promise and an identity that matches the region change.</p></div></div>
+      <div class="prop"><span class="k">F</span><div><span class="st">Proposed</span><h4>Weekly format rotation with one signature night</h4><p>Quiz, Triple Triad, glamour contests and festivals, run by Kurome's idea bank.</p></div></div>
+      <div class="prop"><span class="k">G</span><div><span class="st">Proposed</span><h4>Quiet marketing rules</h4><p>No shout or city spam. Use the venue directories, an event listing site and one Party Finder listing at a time. Keep Discord as the main channel.</p></div></div>
+      <div class="prop"><span class="k">H</span><div><span class="st">Proposed</span><h4>Summer's field audit</h4><p>Visit about eight Tonberry venues twice. Record the hour, headcount, language, hook and staff count. This replaces the Reddit and Discord evidence I could not reach.</p></div></div>
+      <div class="prop"><span class="k">I</span><div><span class="st">Proposed</span><h4>Set a stop-loss</h4><p>Review after six open weeks. If attendance is below the agreed target, scale back staff, formats or the unfinished zones instead of spending the buffer.</p></div></div>
+      <div class="prop"><span class="k">J</span><div><span class="st">Proposed</span><h4>Add low and high cases to the forecast</h4><p>Show the 92.3M, 60.3M and −7.7M outcomes beside the chart, and add a scheduling tool to the staff tasks.</p></div></div>
+    </div>
+  </section>
+
   <div class="verdict">
     <div style="display:flex;flex-direction:column;gap:12px">
       <span class="label">Bottom line</span>
